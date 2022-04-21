@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { MyRoutes } from "../app/Routes";
+import ScrollToTop from "react-scroll-to-top";
 import { LayoutSplashScreen } from "../_theme/layout";
 
 export default function App({ store, persistor, basename }) {
@@ -22,6 +23,7 @@ export default function App({ store, persistor, basename }) {
             {/*This library only returns the location that has been active before the recent location change in the current window lifetime.*/}
               {/* Provide `react-intl` context synchronized with Redux state.  */}
                 {/* Render routes with provided `Layout`. */}
+                <ScrollToTop component={<i class="fa fa-chevron-up"></i>} style={{backgroundColor: "#bd1212", color: "#FFFFFF"}} smooth />
                 <MyRoutes />
           </BrowserRouter>
         </React.Suspense>
