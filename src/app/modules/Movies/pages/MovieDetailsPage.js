@@ -1,9 +1,6 @@
 import React from "react";
-import "../../../../_theme/css/style.css";
-import "../../../../_theme/css/bootstrap.min.css";
-import "../../../../_theme/fonts/icomoon/style.css";
 import "../../../../_theme/layout/styles/layout.css";
-import "../../../../_theme/layout/styles/w3.css";
+// import "../../../../_theme/layout/styles/w3.css";
 
 export const MovieDetailsPage = () => {
 
@@ -12,7 +9,7 @@ export const MovieDetailsPage = () => {
       <div className="clear"></div>
       <div className="wrapper bgded overlay" style={{ backgroundImage: "url('../images/demo/bg2.jpeg')" }}>
         <div className="w3-row w3-padding-64" id="about">
-          <div className="w3-col m6 w3-padding-large w3-hide-small">
+          <div className="w3-col m6 w3-padding-large">
             <br /><br /><img src="../images/demo/img/3.jpg" className="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750" />
           </div>
           <br /><br />

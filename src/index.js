@@ -10,8 +10,8 @@
  import * as _redux from "./redux";
  import store, { persistor } from "./redux/store";
  import reportWebVitals from "./utils/reportWebVitals";
-//  import 'bootstrap/dist/css/bootstrap.min.css';
-//  import 'bootstrap-social/bootstrap-social.css';
+ import 'bootstrap/dist/css/bootstrap.min.css';
+ import 'bootstrap-social/bootstrap-social.css';
  import App from "./app/App";
  import "./index.css";
  
