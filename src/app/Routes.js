@@ -13,6 +13,7 @@ import { Logout, AuthPage } from "./modules/Auth";
 import { LandingPage } from "./pages/LandingPage";
 import { LoginPage } from "./modules/Auth/pages/LoginPage";
 import { SignUpPage } from "./modules/Auth/pages/SignUpPage";
+import { MovieDetailsPage } from "./modules/Movies/pages/MovieDetailsPage";
 
 export function MyRoutes() {
     const {isAuthorized} = useSelector(
@@ -41,6 +42,7 @@ export function MyRoutes() {
             <Route path="/logout" element={<Logout />}/>
             <Route exact path="/*" element={<BasePage />}>
                 <Route exact path="" element={<LandingPage />}/>
+                <Route exact path="movies/:id" element={<MovieDetailsPage />}/>
             </Route>
         </Routes>
     );

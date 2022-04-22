@@ -1,6 +1,6 @@
 import React from "react";
 import { RecommendedLandPage } from "../modules/RecommendedMovies/pages/RecommendedLandPage";
-import { TopMoviesLandPage } from "../modules/TopMovies/pages/TopMoviesLandPage";
+import { TopMoviesLandPage } from "../modules/Movies/pages/TopMoviesLandPage";
 import { CinemaLandPage } from "../modules/Cinema/pages/CinemaLandPage";
 import "../../_theme/layout/styles/layout.css";
 
