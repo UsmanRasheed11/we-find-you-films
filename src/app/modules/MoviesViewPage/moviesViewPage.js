@@ -5,12 +5,18 @@ import MoviesDescriptionsComponent from "./moviesDescriptionsComponent";
 import MoviesPosterComponent from "./moviesPosterComponent";
 import "./moviesviewpage.css";
 import MovieViewComponent from "./movieViewComponent";
-// import { Rate } from 'antd';
+import DemoData from "./moviedetail.json";
+
 function MoviesViewPage(props) {
 
   const [movieId, setMovieId] = useState(null);
   const [movieData, setmovieData] = useState(null);
+  const [isVedioPlayer, setIsVedioPlayer] = useState(false);
 
+  const HandlerPlayTriler = () => {
+    setIsVedioPlayer(!isVedioPlayer)
+
+  };
   // //using UseEffect to get Movie Id from URL
   // useEffect(() => {
   //   const currentURL = window.location.href;
@@ -28,32 +34,50 @@ function MoviesViewPage(props) {
   //     console.log("error",error)
   // })
   // }, []);
+  //using UseEffect to get Movie Id from URL
+  useEffect(() => {
+    setmovieData(DemoData)
+  }, []);
 
   return (
     <>
-      {/************   main section of preview *********/}
       <MovieViewComponent 
       Id={movieId}
        title={movieData?.fullTitle || null}
         image={movieData?.image || null}
         description={movieData?.plot || null}
         tagline={movieData?.tagline || null}
+        imDbRating={movieData?.imDbRating || null}
+        HandlerPlayTriler={HandlerPlayTriler}
+        isVedioPlayer={isVedioPlayer}
       
       />
-      {/************  poster images *********/}
-      <MoviesPosterComponent Id={movieId} posters={movieData? movieData?.images?.items : null} />
+    {
+      isVedioPlayer?(<>
+        {/************   main section of preview *********/}
+     
+      </>):(<>
+      
+        {/************  poster images *********/}
+        <MoviesPosterComponent Id={movieId} posters={movieData? movieData?.images?.items : null} />
       {/************   Description Section *********/}
       <MoviesDescriptionsComponent
       title={movieData?.fullTitle || null}
       description={movieData?.plot || null}
       rating={movieData?.imDbRating || null}
       genres={movieData?.genres || null}
+      imDbRating={movieData?.imDbRating || null}
       />
       {/************   Crew Section *********/}
-      <MOviesCastComponent  
+      {/* <MOviesCastComponent  
       // Id={movieId} actors={movieData?.actorList || null}
       
-      />
+      /> */}
+      </>)
+    }
+    
+     
+    
     </>
   );
 }

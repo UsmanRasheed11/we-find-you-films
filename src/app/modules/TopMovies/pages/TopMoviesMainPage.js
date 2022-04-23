@@ -34,9 +34,9 @@ export const TopMoviesMainPage = () => {
   return (
     <>
       <section className="text-white">
-        asdadssdfsdfsdf
+        <h1 className="text-white mt-4"> TOP 250 Movies</h1>
         {/* ********* movies display area started here *********** */}
-        <div class="container-fluid mt-5 p-5">
+        <div class="container-fluid mt-1 p-5">
           <div id="movie-content" class="row d-flex justify-content-center">
             {DemoData && DemoData.items.map((mapDemoData,index)=>{
             if(index >= minIndex && index < maxIndex )  return(<MoviesCard movies={mapDemoData}/>)
@@ -47,8 +47,15 @@ export const TopMoviesMainPage = () => {
         {/* ********* movies display area ended here *********** */}
 
         {/* ********* pagination started here *********** */}
-        <Pagination responsive={true} current={current} pageSize={pageSize} total={Data.length} onChange={handlePaginationChange} />
-
+        <div className="pb-5">
+        <Pagination
+        className="Pagination "
+        responsive={true}
+         current={current}
+          pageSize={pageSize} 
+          total={Data.length}
+           onChange={handlePaginationChange} />
+</div>
         {/* ********* pagination ended here *********** */}
       </section>
     </>

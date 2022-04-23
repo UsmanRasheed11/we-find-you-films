@@ -342,7 +342,30 @@
     /* margin-top: 250px !important; */
     margin-right: 20px !important;
 }
-.MoviesDescriptionsComponent{
+
+/* imdbcss */
+@media screen and (min-width: 750px) {
+  .MoviesDescriptionsComponent{
     margin-top: 250px !important;
 }
-/* imdbcss */
+}
+.closebuttononVedio{
+  display: block;
+   float: right;
+   position: sticky;
+   top: 25px;
+   right: 30px;
+   z-index: 1002;
+   background-color: rgb(124, 0, 0);
+   color: white;
+
+   /* position: sticky;
+   top: 5px;
+   
+   background-color: yellow;
+   padding: 20px;
+   font-size: 20px;
+   width: 10px;
+   height: 10px; */
+}
+

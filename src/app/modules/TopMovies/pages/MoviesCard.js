@@ -16,10 +16,10 @@ function MoviesCard(props) {
            {/* *********  image of card ******* */}
           <img
             class="img-fluid movie-img"
-            // src={props.movies.image || "https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg"}
-            src={
-              "https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg"
-            }
+            height='500px'
+            width='400px'
+             src={props.movies.image || "https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg"}
+          //  src={  "https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg" }
             alt="Sorry, something went wrong"
           />
           {/* *********  block of card ******* */}

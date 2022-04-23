@@ -34,7 +34,9 @@
   .movie-img {
     border-radius: 0.5rem 0.5rem 0 0;
     overflow: hidden;
-    max-height: 100% !important;
+    /* max-height: 100% !important; */
+    height: 400px;
+    width: 350px;
   }
   .orangetext {
     color: orange;
@@ -47,7 +49,6 @@
     position: relative;
     width: 50%;
   }
-  
   .movie-card {
     opacity: 1;
     display: block;
@@ -86,3 +87,56 @@
     width: 150px;
     
   }
+  /* ************************ Pagination started ************************* */
+  /* numbers item */
+  .ant-pagination-item a {
+    border-color: rgb(77, 0, 0) !important;
+    background-color: rgb(124, 0, 0,1);
+    color: white !important;
+  }
+  .ant-pagination-item {
+    border-color: rgb(77, 0, 0) !important;
+    background-color: rgb(124, 0, 0,1);
+    color: white !important;
+  }
+
+  /* less than & greater than icon < > */
+  .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    border-color: rgb(77, 0, 0) !important;
+    background-color: rgb(124, 0, 0,1) !important;
+    color: white !important;
+  }
+
+  /* selector */
+  .ant-select-selector {
+    border-color: rgb(77, 0, 0) !important;
+    background-color: rgb(124, 0, 0,1) !important;
+    color: white !important;
+  }
+  .ant-select-item-option, .rc-virtual-list, .rc-virtual-list-holder, .rc-virtual-list-holder-inner {
+    border-color: rgb(77, 0, 0) !important;
+    background-color: rgb(124, 0, 0,1) !important;
+    color: white !important;
+  }
+ .ant-select-dropdown {
+    background-color: rgb(124, 0, 0,1) !important;
+    color: white !important;
+  }
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background-color: rgb(124, 0, 0,1) !important;
+  color: white !important;
+}
+.anticon-down{
+  color: white  !important;
+}
+.ant-pagination-item-active{
+  border-color: rgb(77, 0, 0) !important;
+  border-color: goldenrod !important ;
+}
+.ant-pagination-item-link-icon, .ant-pagination-item-ellipsis{
+  border-color: rgb(77, 0, 0) !important;
+  border-color: goldenrod !important ;
+  color: white  !important;
+}
+
+  /* ************************ Pagination started ************************* */
