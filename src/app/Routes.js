@@ -14,6 +14,7 @@ import { LandingPage } from "./pages/LandingPage";
 import { LoginPage } from "./modules/Auth/pages/LoginPage";
 import { SignUpPage } from "./modules/Auth/pages/SignUpPage";
 import MoviesViewPage from "./modules/MoviesViewPage/moviesViewPage";
+import { TopMoviesMainPage } from "./modules/TopMovies/pages/TopMoviesMainPage";
 
 export function MyRoutes() {
     const {isAuthorized} = useSelector(
@@ -39,6 +40,7 @@ export function MyRoutes() {
                 <Route from="/auth" element={<Navigate to="/" />}/>
             )}
            <Route  path="/movie/*" element={<MoviesViewPage />}/>
+           <Route  path="/TopMoviesMainPage" element={<TopMoviesMainPage />}/>
             <Route path="/logout" element={<Logout />}/>
             <Route exact path="/*" element={<BasePage />}>
             <Route exact path="" element={<LandingPage />}/>
