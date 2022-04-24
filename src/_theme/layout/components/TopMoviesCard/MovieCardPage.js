@@ -15,7 +15,7 @@ export const MovieCardPage = ({first, movie, text}) => {
           </figure>
           <div className="excerpt">
             <time dateTime="2045-04-04T08:15+00:00" data-title="April"><strong>{movie.time.split(",")[0]}</strong> <em>{movie.time.split(",")[1]}</em></time>
-            <h6 className="heading"><a href="/">{movie.title}</a></h6>
+            <h6 className="heading"><a href={`/movies/${movie.id}`}>{movie.title}</a></h6>
             <p>{movie.description}</p>
           </div>
         </article>

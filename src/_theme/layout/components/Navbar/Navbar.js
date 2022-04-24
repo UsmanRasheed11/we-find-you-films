@@ -17,7 +17,7 @@ export const NavbarPage = () => {
         <li><a className="drop" href="pages/gallery.html">Movies</a>
           
         </li>
-        <li><a className="drop" href="#">Top genre</a><ul>
+        <li><a className="drop" href="/">Top genre</a><ul>
           <li className="active"><a href="pages/action.html">Action</a></li>
           <li><a href="pages/comedy.html">comedy</a></li>
           <li><a href="pages/comedy.html">Thriller</a></li>
@@ -28,8 +28,8 @@ export const NavbarPage = () => {
           <li><a href="pages/comedy.html">Crime</a></li>
           <li><a href="pages/comedy.html">Science fiction</a></li></ul>
         </li>
-        <li><a href="pages/watchlist.html">Watchlist</a></li>
-        <li><a href="pages/cenima.html">Watch in cenima</a></li>
+        <li><a href="/wishlist">Watchlist</a></li>
+        <li><a href="/cinemas">Watch in cenima</a></li>
       </ul>
     </nav>
     
