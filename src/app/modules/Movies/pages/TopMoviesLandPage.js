@@ -35,7 +35,7 @@ export const TopMoviesLandPage = () => {
       </div>
       <ul className="nospace group btmspace-50">
         {movies.map((movie, index) => (
-          <MovieCardPage key={movie.id} text={"View"} first={(index === 0) ? true : false} movie={movie} />
+          <MovieCardPage key={movie.id} text={"View"} first={(index%3 === 0) ? true : false} movie={movie} />
         ))}
       </ul>
       <p className="center nospace"><a className="btn" href="pages/gallery.html">view more{">>"}</a></p><b><br /></b>

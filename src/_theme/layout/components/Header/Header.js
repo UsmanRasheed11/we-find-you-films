@@ -14,7 +14,7 @@ export const HeaderPage = () => {
     </div>
     <div className="fl_right">
       <form className="clear" method="post" action="#">
-        <fieldset>
+        <fieldset className="d-flex h-100">
           <input type="search" defaultValue="" placeholder="Search Here&hellip;" />
           <button className="fa fa-search" type="submit" title="Search"><em>Search</em></button>
         </fieldset>

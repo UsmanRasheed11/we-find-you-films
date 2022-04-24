@@ -6,7 +6,7 @@ function MoviesCard(props) {
     // main container of Card
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-0 moviecontainer">
       {/* link forredirecting to next main page */}
-      <Link to={`/movie/${props.movies.id || "demo"}`}>
+      <Link to={`/movies/${props.movies.id || "demo"}`}>
         {/* hover display div area */}
         <div class="hovermiddle">
           <div class="text">Go To Movie</div>

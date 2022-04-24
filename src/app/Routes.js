@@ -18,6 +18,7 @@ import { TopMoviesMainPage } from "./modules/TopMovies/pages/TopMoviesMainPage";
 import { MovieDetailsPage } from "./modules/Movies/pages/MovieDetailsPage";
 import { WatchListPage } from "./modules/Movies/pages/WatchlistPage";
 import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
+import { CinemaDetailsPage } from "./modules/Cinema/pages/CinemaDetailsPage";
 
 export function MyRoutes() {
     const {isAuthorized} = useSelector(
@@ -42,15 +43,16 @@ export function MyRoutes() {
                 /*Otherwise redirect to root page (`/`)*/
                 <Route from="/auth" element={<Navigate to="/" />}/>
             )}
-           <Route  path="/movie/*" element={<MoviesViewPage />}/>
            <Route  path="/TopMoviesMainPage" element={<TopMoviesMainPage />}/>
             <Route path="/logout" element={<Logout />}/>
             <Route exact path="/*" element={<BasePage />}>
             <Route exact path="" element={<LandingPage />}/>
                 <Route exact path="" element={<LandingPage />}/>
-                <Route exact path="movies/:id" element={<MovieDetailsPage />}/>
+                <Route  path="movies/:id" element={<MoviesViewPage />}/>
+                {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
                 <Route exact path="wishlist" element={<WatchListPage />}/>
                 <Route exact path="cinemas" element={<CinemaPage />}/>
+                <Route exact path="cinemas/:id" element={<CinemaDetailsPage />}/>
             </Route>
         </Routes>
     );
