@@ -402,7 +402,7 @@ File: Layout CSS
 --------------------------------------------------------------------------------------------------------------- */
 #header{}
 
-#header #logo{margin-top:15px;}
+/* #header #logo{margin-top:15px;} */
 #header #logo *{margin:0; padding:0; line-height:1;}
 #header #logo h1{font-size:32px; font-variant:small-caps;}
 #header #logo p{font-size:12px; text-transform:lowercase;}
@@ -487,18 +487,18 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 /* Top Navigation */
 #mainav{}
 #mainav ul{text-transform:uppercase;}
-#mainav ul ul{z-index:9999; position:absolute; width:180px; text-transform:none;}
-#mainav ul ul ul{left:180px; top:0;}
-#mainav li{display:inline-block; position:relative; margin:0 15px 0 0; padding:0;}
-#mainav li:last-child{margin-right:0;}
-#mainav li li{width:100%; margin:0;}
-#mainav li a{display:block; padding:30px 0;}
+/* #mainav ul ul{z-index:9999; position:absolute; width:180px; text-transform:none;} */
+/* #mainav ul ul ul{left:180px; top:0;} */
+/* #mainav li{display:inline-block; position:relative; margin:0 15px 0 0; padding:0;} */
+/* #mainav li:last-child{margin-right:0;} */
+/* #mainav li li{width:100%; margin:0;} */
+#mainav li a{display:block; padding:20px 0;}
 #mainav li li a{border:solid; border-width:0 0 1px 0;}
 #mainav .drop{padding-left:15px;}
-#mainav li li a, #mainav li li .drop{display:block; margin:0; padding:10px 15px;}
-#mainav .drop::after, #mainav li li .drop::after{content:"\f0d7";}
-#mainav .drop::after{top:35px; left:5px;}
-#mainav li li .drop::after{top:15px; left:5px;}
+/* #mainav li li a, #mainav li li .drop{display:block; margin:0; padding:10px 15px;} */
+/* #mainav .drop::after, #mainav li li .drop::after{content:"\f0d7";} */
+/* #mainav .drop::after{top:35px; left:5px;} */
+/* #mainav li li .drop::after{top:15px; left:5px;} */
 #mainav ul ul{visibility:hidden; opacity:0;}
 #mainav ul li:hover > ul{visibility:visible; opacity:1;}
 

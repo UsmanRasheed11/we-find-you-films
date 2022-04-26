@@ -1,63 +1,102 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import DemoData from './movies.json';
 import MoviesCard from "./MoviesCard";
 import { Pagination } from "antd";
 import "./TopMoviesMainPage.css";
+import { useLocation } from "react-router";
 
 
 
 export const TopMoviesMainPage = () => {
-  const [totalPage,setTotalPage]= useState(0)
-  const [current,setCurrent]= useState(1)
-  const [minIndex,setMinIndex]= useState(0)
-  const [maxIndex,setMaxIndex]= useState(0)
-  const [pageSize,setPageSize]= useState(12)
-  const [Data, setData] =useState(0)
- 
+  const location = useLocation();
+  const [totalPage, setTotalPage] = useState(0)
+  const [current, setCurrent] = useState(1)
+  const [minIndex, setMinIndex] = useState(0)
+  const [maxIndex, setMaxIndex] = useState(0)
+  const [pageSize, setPageSize] = useState(12)
+  const [Data, setData] = useState(0)
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
-    setData(DemoData.items)
-    setTotalPage(DemoData.items.length / pageSize);
-    setMinIndex(0);
-    setMaxIndex(pageSize)
-  }, []);
+    async function loadData() {
+      if (location.search) {
+        if (location.search.includes("search")) {
+          setLoading(true)
+          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr${location.search.replace("?search=", "?title=")}`)
+          setLoading(false)
+          setData(res.data.results)
+          setTotalPage(res.data.results?.length || 0 / pageSize);
+          setMinIndex(0);
+          setMaxIndex(pageSize)
+        }
+        else {
+          setLoading(true)
+          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr/${location.search}`);
+          setLoading(false)
+          setData(res.data.results)
+          setTotalPage(res.data.results?.length || 0 / pageSize);
+          setMinIndex(0);
+          setMaxIndex(pageSize)
+        }
+      }
+      else {
+        setData(DemoData.items)
+        setTotalPage(DemoData.items.length / pageSize);
+        setMinIndex(0);
+        setMaxIndex(pageSize)
+      }
+    }
+    loadData();
+  }, [location.search, pageSize]);
 
 
- const handlePaginationChange = (page,size) => {
-   console.log(page,size)
-   setPageSize(size)
+  const handlePaginationChange = (page, size) => {
+    console.log(page, size)
+    setPageSize(size)
     setCurrent(page);
     setMinIndex((page - 1) * size);
     setMaxIndex(page * size)
   };
-
-  return (
-    <>
-      <section className="text-white">
-        <h1 className="text-white mt-4"> TOP 250 Movies</h1>
-        {/* ********* movies display area started here *********** */}
-        <div class="container-fluid mt-1 p-5">
-          <div id="movie-content" class="row d-flex justify-content-center">
-            {DemoData && DemoData.items.map((mapDemoData,index)=>{
-            if(index >= minIndex && index < maxIndex )  return(<MoviesCard movies={mapDemoData}/>)
-            
-          } )}
-         </div>
-        </div>
-        {/* ********* movies display area ended here *********** */}
-
-        {/* ********* pagination started here *********** */}
-        <div className="pb-5">
-        <Pagination
-        className="Pagination "
-        responsive={true}
-         current={current}
-          pageSize={pageSize} 
-          total={Data.length}
-           onChange={handlePaginationChange} />
-</div>
-        {/* ********* pagination ended here *********** */}
-      </section>
+  if ((!Data?.length || Data?.length < 1) && !loading) {
+    return <>
+      <h1 className="mt-5 text-white">No results Found!</h1>
     </>
-  );
+  }
+  else {
+    return (
+      <>
+        <section className="text-white">
+          {!loading ? location.search ? <h1 className="text-white mt-4">Found Movies</h1> : <h1 className="text-white mt-4"> TOP 250 Movies</h1> : <></>}
+          {/* ********* movies display area started here *********** */}
+          {!loading ?
+            <>
+              <div className="container-fluid mt-1 p-5">
+                <div id="movie-content" className="row d-flex justify-content-center">
+                  {Data && Data.map((mapDemoData, index) => {
+                    if (index >= minIndex && index < maxIndex) return (<MoviesCard movies={mapDemoData} />)
+                    return <div>no record found</div>
+
+                  })}
+                </div>
+              </div>
+              {/* ********* movies display area ended here *********** */}
+
+              {/* ********* pagination started here *********** */}
+              <div className="pb-5">
+                <Pagination
+                  className="Pagination "
+                  responsive={true}
+                  current={current}
+                  pageSize={pageSize}
+                  total={Data?.length || 0}
+                  onChange={handlePaginationChange} />
+              </div>
+            </> : <div className="d-flex align-items-center justify-content-center vh-100"><div className="spinner-border text-light" role="status"></div></div>}
+          {/* ********* pagination ended here *********** */}
+        </section>
+      </>
+    );
+  }
 };
