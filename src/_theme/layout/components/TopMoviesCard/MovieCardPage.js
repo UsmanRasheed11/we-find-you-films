@@ -7,7 +7,7 @@ export const MovieCardPage = ({first, movie, text}) => {
 
   return (
     <>
-       <Link to={`/movies/${movie.id}`}>Home
+       <Link to={`/movies/${movie.id}`}>
       <li className={`one_third ${first?"first":""}`}>
         <article className="element">
           <figure><img src={movie.src} alt={movie.title} />

@@ -38,7 +38,7 @@ export const TopMoviesLandPage = () => {
           <MovieCardPage key={movie.id} text={"View"} first={(index%3 === 0) ? true : false} movie={movie} />
         ))}
       </ul>
-      <p className="center nospace"><a className="btn" href="pages/gallery.html">view more{">>"}</a></p><b><br /></b>
+      <p className="center nospace"><a className="btn" href="/TopMoviesMainPage">view more{">>"}</a></p><b><br /></b>
     </>
   );
 };

@@ -18,7 +18,6 @@ export const TopMoviesMainPage = () => {
   const [Data, setData] = useState(0)
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     async function loadData() {
       if (location.search) {
@@ -27,7 +26,7 @@ export const TopMoviesMainPage = () => {
           const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr${location.search.replace("?search=", "?title=")}`)
           setLoading(false)
           setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0 / pageSize);
+          setTotalPage(res.data.results?.length || 0);
           setMinIndex(0);
           setMaxIndex(pageSize)
         }
@@ -36,14 +35,14 @@ export const TopMoviesMainPage = () => {
           const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr/${location.search}`);
           setLoading(false)
           setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0 / pageSize);
+          setTotalPage(res.data.results?.length || 0);
           setMinIndex(0);
           setMaxIndex(pageSize)
         }
       }
       else {
         setData(DemoData.items)
-        setTotalPage(DemoData.items.length / pageSize);
+        setTotalPage(DemoData.items.length);
         setMinIndex(0);
         setMaxIndex(pageSize)
       }
@@ -53,16 +52,13 @@ export const TopMoviesMainPage = () => {
 
 
   const handlePaginationChange = (page, size) => {
-    console.log(page, size)
     setPageSize(size)
     setCurrent(page);
     setMinIndex((page - 1) * size);
     setMaxIndex(page * size)
   };
   if ((!Data?.length || Data?.length < 1) && !loading) {
-    return <>
-      <h1 className="mt-5 text-white">No results Found!</h1>
-    </>
+    return <h1 className="mt-5 text-white">No Result Found!</h1>
   }
   else {
     return (
@@ -74,9 +70,9 @@ export const TopMoviesMainPage = () => {
             <>
               <div className="container-fluid mt-1 p-5">
                 <div id="movie-content" className="row d-flex justify-content-center">
-                  {Data && Data.map((mapDemoData, index) => {
-                    if (index >= minIndex && index < maxIndex) return (<MoviesCard movies={mapDemoData} />)
-                    return <div>no record found</div>
+                  {Data && Data.map((movie, index) => {
+                    if (index >= minIndex && index < maxIndex) return (<MoviesCard key={movie.id} movies={movie} />)
+                    return null
 
                   })}
                 </div>
@@ -90,7 +86,7 @@ export const TopMoviesMainPage = () => {
                   responsive={true}
                   current={current}
                   pageSize={pageSize}
-                  total={Data?.length || 0}
+                  total={totalPage}
                   onChange={handlePaginationChange} />
               </div>
             </> : <div className="d-flex align-items-center justify-content-center vh-100"><div className="spinner-border text-light" role="status"></div></div>}
