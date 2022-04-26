@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function MoviesCard(props) {
   return (
     // main container of Card
-    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-0 moviecontainer">
+    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-0">
       {/* link forredirecting to next main page */}
       <Link to={`/movies/${props.movies.id || "demo"}`}>
         {/* hover display div area */}

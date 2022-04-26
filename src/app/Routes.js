@@ -43,12 +43,12 @@ export function MyRoutes() {
                 /*Otherwise redirect to root page (`/`)*/
                 <Route from="/auth" element={<Navigate to="/" />}/>
             )}
-           <Route  path="/TopMoviesMainPage" element={<TopMoviesMainPage />}/>
             <Route path="/logout" element={<Logout />}/>
             <Route exact path="/*" element={<BasePage />}>
             <Route exact path="" element={<LandingPage />}/>
                 <Route exact path="" element={<LandingPage />}/>
                 <Route  path="movies/:id" element={<MoviesViewPage />}/>
+                <Route  path="TopMoviesMainPage" element={<TopMoviesMainPage />}/>
                 {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
                 <Route exact path="wishlist" element={<WatchListPage />}/>
                 <Route exact path="cinemas" element={<CinemaPage />}/>
