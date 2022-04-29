@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import { Formik } from "formik";
 
@@ -11,13 +12,13 @@ export const HeaderPage = () => {
     // console.log(res)
   }
   const navigate = useNavigate();
-  const {isAuthorized, user} = useSelector(
-    ({auth}) => ({
-        isAuthorized: auth.user != null,
-        user: auth.user,
+  const { isAuthorized, user } = useSelector(
+    ({ auth }) => ({
+      isAuthorized: auth.user != null,
+      user: auth.user,
     }),
     shallowEqual
-);
+  );
 
   return (
     <div className="wrapper row0">
@@ -25,10 +26,11 @@ export const HeaderPage = () => {
 
         <div className="fl_left">
           <ul className="nospace inline pushright">
-          {!isAuthorized? <>
-            <li><i className="fa fa-sign-in"></i> <a href="/auth/login">Login</a></li>
-            <li><i className="fa fa-user"></i> <a href="/auth/register">Register</a></li>
-          </>:<li>{user?.email}</li>}
+            {!isAuthorized ? <>
+              <li><i className="bi bi-box-arrow-in-right"></i> <a href="/auth/login">Login</a></li>
+              <li><i className="fa fa-user"></i> <a href="/auth/register">Register</a></li>
+            </> : <div className="d-flex"><li style={{ textTransform: "lowercase" }} className="text-dark"> <span className="mx-2">Logged In as: </span><span className="text-primary">{(user?.Email)}</span></li><li><Link to="/logout" title="SignOut" style={{ fontSize: "1.2rem" }} className="bi bi-box-arrow-right text-danger d-flex">
+            </Link></li></div>}
           </ul>
         </div>
         <div className="fl_right">

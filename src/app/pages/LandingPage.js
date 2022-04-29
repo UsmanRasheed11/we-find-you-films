@@ -28,7 +28,7 @@ export const LandingPage = () => {
   </main>
   </div>
   <CinemaLandPage />
-  <div className="wrapper row3">
+  {/* <div className="wrapper row3">
   <section className="hoc container clear"> 
     <div className="group">
       <div className="one_third first btmspace-30">
@@ -40,7 +40,7 @@ export const LandingPage = () => {
       
     </div>
   </section>
-</div>
+</div> */}
   </>
   );
 };

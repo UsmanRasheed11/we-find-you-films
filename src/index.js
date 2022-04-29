@@ -9,6 +9,7 @@ import store, { persistor } from "./redux/store";
 import reportWebVitals from "./utils/reportWebVitals";
 //  import 'bootstrap/dist/css/bootstrap.min.css';
 //  import 'bootstrap-social/bootstrap-social.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./_theme/css/bootstrap.min.css";
 import "./_theme/fonts/icomoon/style.css";
 import App from "./app/App";

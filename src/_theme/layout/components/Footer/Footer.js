@@ -4,7 +4,7 @@ export const FooterPage = () => {
   const year = new Date();
   return (
     <>
-      <div className="wrapper row4 bgded overlay" style={{backgroundImage: "url('images/demo/backgrounds/03.png')"}}>
+      {/* <div className="wrapper row4 bgded overlay" style={{backgroundImage: "url('images/demo/backgrounds/03.png')"}}>
         <footer id="footer" className="hoc clear">
           <div className="one_quarter first">
             <h6 className="title">Libero semper nec</h6>
@@ -55,9 +55,9 @@ export const FooterPage = () => {
             </ul>
           </div>
         </footer>
-      </div>
+      </div> */}
       <div className="wrapper row5">
-        <div id="copyright" className="hoc clear">
+        <div id="copyright" className="hoc clear d-flex justify-content-center">
           <p className="fl_left">Copyright &copy; {year.getFullYear()} - All Rights Reserved - <a href="/"></a></p>
         </div>
       </div>

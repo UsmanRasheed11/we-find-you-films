@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
-import { useNavigate } from "react-router";
 import {connect} from "react-redux";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
@@ -12,7 +11,6 @@ import { Input } from "../../../../_theme/_partials/controls";
 
 const LoginPage = (props) => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const enableLoading = () => {
     setLoading(true);
@@ -61,7 +59,6 @@ const LoginPage = (props) => {
                           console.log(data)
                           disableLoading();
                           props.login(data.token);
-                          navigate("/")
 
                         })
                         .catch(() => {

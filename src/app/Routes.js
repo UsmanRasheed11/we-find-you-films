@@ -41,7 +41,7 @@ export function MyRoutes() {
                 </>
             ) : (
                 /*Otherwise redirect to root page (`/`)*/
-                <Route from="/auth" element={<Navigate to="/" />}/>
+                <Route path="/auth/login" element={<Navigate to="/" />}/>
             )}
             <Route path="/logout" element={<Logout />}/>
             <Route exact path="/*" element={<BasePage />}>

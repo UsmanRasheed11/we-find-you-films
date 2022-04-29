@@ -5,7 +5,7 @@ export const LOGIN_URL = "user/login";
 export const REGISTER_URL = "user/signup";
 export const REQUEST_PASSWORD_URL = "user/updatepassword";
 
-export const ME_URL = "me";
+export const ME_URL = "user/getOne";
 
 export function login(Email, Password) {
   return axios.post(LOGIN_URL, { Email, Password });
