@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import { useNavigate } from "react-router";
+import {connect} from "react-redux";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
 import "../../../../_theme/fonts/icomoon/style.css";
@@ -9,7 +10,7 @@ import * as auth from "../_redux/authRedux";
 import { login } from "../_redux/authCrud";
 import { Input } from "../../../../_theme/_partials/controls";
 
-export const LoginPage = (props) => {
+const LoginPage = (props) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -143,3 +144,5 @@ export const LoginPage = (props) => {
     </>
   );
 }
+
+export default connect(null, auth.actions)(LoginPage);

@@ -11,7 +11,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/Auth";
 import { LandingPage } from "./pages/LandingPage";
-import { LoginPage } from "./modules/Auth/pages/LoginPage";
+import LoginPage from "./modules/Auth/pages/LoginPage";
 import SignUpPage from "./modules/Auth/pages/SignUpPage";
 import MoviesViewPage from "./modules/MoviesViewPage/moviesViewPage";
 import { TopMoviesMainPage } from "./modules/TopMovies/pages/TopMoviesMainPage";
