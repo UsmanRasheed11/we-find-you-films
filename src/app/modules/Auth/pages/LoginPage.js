@@ -1,42 +1,140 @@
-import React from "react";
+import React, { useState } from "react";
+import { Formik, Field } from "formik";
+import { useNavigate } from "react-router";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
 import "../../../../_theme/fonts/icomoon/style.css";
 import { Link } from "react-router-dom";
+import * as auth from "../_redux/authRedux";
+import { login } from "../_redux/authCrud";
+import { Input } from "../../../../_theme/_partials/controls";
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const enableLoading = () => {
+    setLoading(true);
+  };
+
+  const disableLoading = () => {
+    setLoading(false);
+  };
   return (
     <>
       <div className="d-lg-flex half">
-        <div className="bg order-1 order-md-2" style={{backgroundImage: "url(/images/cinema.jpg)"}}></div>
+        <div className="bg order-1 order-md-2" style={{ backgroundImage: "url(/images/cinema.jpg)" }}></div>
         <div className="contents order-2 order-md-1">
 
           <div className="container">
             <div className="row align-items-center justify-content-center">
               <div className="col-md-7">
-                <h3>Login to <strong >findyourfilms</strong></h3>
+                <h3 className="text-white d-flex h2">Login to <span className="mx-2"><strong >findyourfilms</strong></span></h3>
                 <br />
-                <form action="#" method="post">
-                  <div className="form-group first">
-                    <label htmlFor="username" id="label">Username</label>
-                    <input type="text" className="form-control" placeholder="enter your email" id="username" />
-                  </div>
-                  <div className="form-group last mb-3">
-                    <label htmlFor="password" id="label">Password</label>
-                    <input type="password" className="form-control" placeholder="enter your Password" id="password" />
-                  </div>
+                <Formik
+                  initialValues={{
+                    Email: "",
+                    Password: "",
+                  }}
+                  validate={values => {
+                    const errors = {};
 
-                  <div className="d-flex mb-5 align-items-center">
-                    <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
-                      <input type="checkbox" defaultChecked />
-                      <div className="control__indicator"></div>
-                    </label>
-                    <span className="ml-auto"><a href="/" className="forgot-pass">Forgot Password</a></span>
-                  </div>
+                    if (!values.Email) {
+                      errors.Email = "Required Fields";
+                    } else if (
+                      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.Email)
+                    ) {
+                      errors.Email = "Invalid Value";
+                    }
+                    if (!values.Password) {
+                      errors.Password = "Required Fields";
+                    }
 
-                  <input type="submit" value="Log In" className="btn btn-block btn-primary" id="btn" /><h5><center>or</center></h5>
-                  <Link to="/auth/register"><input type="button" value="Create account" className="btn btn-block btn-primary" id="btn2" /></Link>
-                </form>
+                    return errors;
+                  }}
+                  onSubmit={(values, { setStatus, setSubmitting }) => {
+                    enableLoading();
+                    setTimeout(() => {
+                      login(values.Email, values.Password)
+                        .then(({ data }) => {
+                          console.log(data)
+                          disableLoading();
+                          props.login(data.token);
+                          navigate("/")
+
+                        })
+                        .catch(() => {
+                          disableLoading();
+                          setSubmitting(false);
+                          setStatus(
+                            "Required Fields"
+                          );
+                        });
+                    }, 1000);
+                  }}
+                >
+                  {({
+                    values,
+                    status,
+                    errors,
+                    touched,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => (
+                    <form
+                      onSubmit={handleSubmit}
+                      noValidate
+                      autoComplete="off"
+                      className="form"
+                    >
+                      <div className="form-group first">
+                        <Field type="email" name="Email" component={Input} label="Email" >
+                          {({ field }) => (
+                            <div>
+                              <input
+                                type="email" {...field}
+                                className="form-control"
+                                placeholder="enter your email" />
+                              {touched.Email &&
+                                errors.Email && <div className="text-white">{errors.Email}</div>}
+                            </div>
+                          )}
+                        </Field>
+                      </div>
+                      <div className="form-group last mb-3">
+                        <Field type="password" name="Password" component={Input} label="Password">
+                          {({ field }) => (
+                            <div>
+                              <input
+                                type="password" {...field}
+                                className="form-control"
+                                placeholder="enter your Password" />
+                              {touched.Password &&
+                                errors.Password && <div className="text-white">{errors.Password}</div>}
+                            </div>
+                          )}
+                        </Field>
+                      </div>
+
+                      <div className="d-flex mb-5 align-items-center">
+                        <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
+                          <input type="checkbox" defaultChecked />
+                          <div className="control__indicator"></div>
+                        </label>
+                        <span className="ml-auto"><a href="/" className="forgot-pass">Forgot Password</a></span>
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn btn-block btn-primary" id="btn"
+                      >
+                        {loading?<span className="spinner-border text-light"></span>:<span className={`${loading ? "pr-3" : ""}`}>Log In</span>}
+                      </button><h5 className="text-white mt-2"><center>OR</center></h5>
+                      <Link to="/auth/register"><input type="button" value="Create account" className="btn btn-block btn-primary" id="btn2" /></Link>
+                    </form>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>
