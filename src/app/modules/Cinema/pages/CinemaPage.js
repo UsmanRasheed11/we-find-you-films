@@ -1,5 +1,6 @@
 import React from "react";
 import "../../../../_theme/layout/styles/layout.css";
+import "./cinemapage.css";
 
 const cinemas = [
   {
@@ -48,7 +49,7 @@ const CinemaListCard = ({ cinema, first }) => {
           <figure><img src={cinema.image} alt={cinema.name} />
             <figcaption><a className="btn small" href={`/cinemas/${cinema.id}`}>View</a></figcaption>
           </figure>
-          <h6 ><a href={`/cinemas/${cinema.id}`}>{cinema.name}</a></h6>
+          <h6 className="cinemaname" ><a href={`/cinemas/${cinema.id}`}>{cinema.name}</a></h6>
           <p>{cinema.address}</p>
 
         </article>
@@ -60,17 +61,17 @@ const CinemaSearchResultPage = ({ cinemas }) => {
   if (cinemas.length > 0) {
     return (
       <>
-        <div className="wrapper row3">
+        <div className="wrapper row3" id='cinemaMain'>
           <main className="hoc container clear">
 
             <div className="center btmspace-50">
-              <h2 className="heading" >Search Results!!!</h2>
+              <h2 className="heading text-white" >Cinemas </h2>
 
             </div>
             <ul className="nospace group btmspace-50">
               {cinemas.map((cinema, index) => (<CinemaListCard key={cinema.id} cinema={cinema} first={(index%3 === 0)?true:false} />))}
             </ul>
-            <p className="center nospace"><a className="btn" href="/cinemas">view more{">>"}</a></p>
+            {/* <p className="center nospace"><a className="btn" href="/cinemas">view more{">>"}</a></p> */}
             <div className="clear"></div>
           </main>
         </div>
@@ -98,7 +99,7 @@ export const CinemaPage = () => {
 
   return (
     <>
-      <div className="wrapper bgded overlay" style={{ backgroundImage: "url(images/cinema.jpg)" }}>
+      {/* <div className="wrapper bgded overlay" style={{ backgroundImage: "url(images/cinema.jpg)" }}>
         <div id="pageintro" className="hoc clear">
 
           <article>
@@ -131,7 +132,7 @@ export const CinemaPage = () => {
           </article>
 
         </div>
-      </div>
+      </div> */}
       <CinemaSearchResultPage cinemas={cinemas} />
     </>
   );

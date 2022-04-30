@@ -10,7 +10,7 @@ export default function BasePage() {
 
     return (
         <Suspense fallback={<LayoutSplashScreen />}>
-        <HeaderPage />
+        {/* <HeaderPage /> */}
         <NavbarPage />
         <Outlet />
         <FooterPage />

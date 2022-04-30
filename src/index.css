@@ -17,3 +17,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* antd notificaiton setting */
+.ant-notification-notice{
+  background-color: rgb(65, 0, 0);
+  color: white !important;
+}
+.anticon svg {
+  color: white !important;
+}
+.ant-notification-notice-message{
+  text-align: left;
+  color: white !important;
+  font-weight: bolder;
+}
+.ant-notification-notice-description{
+  text-align: left;
+  color: white !important;
+}

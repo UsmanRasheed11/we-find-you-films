@@ -56,9 +56,9 @@ export const FooterPage = () => {
           </div>
         </footer>
       </div> */}
-      <div className="wrapper row5">
-        <div id="copyright" className="hoc clear d-flex justify-content-center">
-          <p className="fl_left">Copyright &copy; {year.getFullYear()} - All Rights Reserved - <a href="/"></a></p>
+      <div className="wrapper row5 text-center">
+        <div id="copyright" className="hoc clear">
+          <p className="">Copyright &copy; {year.getFullYear()} - All Rights Reserved - <a href="/"></a></p>
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ import "../../../../_theme/fonts/icomoon/style.css";
 import * as auth from "../_redux/authRedux";
 import { register } from "../_redux/authCrud";
 import {Input} from "../../../../_theme/_partials/controls"
-
+import { Link } from "react-router-dom";
 const SignUpPage = (props) => {
   const [loading, setLoading] = useState(false);
 
@@ -20,14 +20,14 @@ const SignUpPage = (props) => {
   };
   return (
     <>
-      <div className="d-lg-flex half">
+      <div className="d-lg-flex half" style={{Height:'100vh'}}>
         <div className="bg order-1 order-md-2" style={{ backgroundImage: "url(/images/cinema.jpg)" }}></div>
-        <div className="contents order-2 order-md-1">
+        <div className="contents order-2 order-md-1" style={{backgroundAttachment:'fixed' }}>
 
-          <div className="container">
+          <div className="container" style={{marginTop:'-60px'}} >
             <div className="row align-items-center justify-content-center">
               <div className="col-md-7">
-              <h3 className="text-white d-flex h2">Create <span className="mx-2"><strong >Account</strong></span></h3><br />
+              <h3 className="text-white text-center h2" >Create A New Account</h3><br />
 
                 <Formik
                   initialValues={{
@@ -38,7 +38,7 @@ const SignUpPage = (props) => {
                     Gener1: "",
                     Gener2: "",
                     Gener3: "",
-                    Age: 0,
+                    Age: '',
                   }}
                   validate={values => {
                     const errors = {};
@@ -72,7 +72,7 @@ const SignUpPage = (props) => {
                       errors.Gener3 = "Required Fields";
                     }
                     if (values.Age <= 1) {
-                      errors.Age = "Required Fields";
+                      errors.Age = "Required Fields ";
                     }
 
                     return errors;
@@ -217,11 +217,11 @@ const SignUpPage = (props) => {
                         </Field>
                         </div>
                         <div className="form-group last mb-3">
-                        <Field type="number" name="Age" component={Input} label="Age">
+                        <Field type="string" name="Age" component={Input} label="Age">
                           {({ field }) => (
                             <div>
                               <input
-                                type="number" {...field}
+                                type="string" {...field}
                                 className="form-control"
                                 placeholder="enter your Age" />
                               {touched.Age &&
@@ -235,7 +235,7 @@ const SignUpPage = (props) => {
                           <input type="checkbox" defaultChecked />
                           <div className="control__indicator"></div>
                         </label>
-                        <span className="ml-auto"><a href="/" className="forgot-pass">Forgot Password</a></span>
+                        <span className="ml-auto"><a href="/auth/login" className="forgot-pass"> Login to your account </a></span>
                       </div>
                       <button
                         type="submit"
@@ -246,7 +246,11 @@ const SignUpPage = (props) => {
                         {loading && (
                           <span className="spinner-border text-light"></span>
                         )}
+                    
                       </button>
+                      {/* <p className="text-white mt-2" style={{fontWeight:'bold'}}><center>OR</center></p>
+                      <Link to="/auth/login "><input type="button" value="login" className="btn btn-block btn-primary" id="btn2" /></Link>
+                   */}
                     </form>
                   )}
                 </Formik>

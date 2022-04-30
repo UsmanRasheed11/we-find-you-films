@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import { Image } from "antd";
 function MoviesPosterComponent(props) {
     const [moviesPoster, setmoviesPoster] = useState(null);
     //calling use effect to fetch posters from imdb-api
@@ -21,6 +21,7 @@ function MoviesPosterComponent(props) {
   return (
     <>
       <div>    
+      <h4 className="text-white text-left ml-5 pb-3">Screenshots :</h4>
        <ul className="bg-dark">
            {props.posters ?(
                props.posters.map((mapPoster,index)=>{
@@ -31,7 +32,9 @@ function MoviesPosterComponent(props) {
                              <li class="one_quarter first ">
                                {" "}
                                <div class="movie-list-item">
-                                 <img
+                                 <Image
+                                 height={200}
+                                 width ={300}
                                    class="movie-list-item-img"
                                    src={mapPoster.image}
                                    alt=""
@@ -44,7 +47,9 @@ function MoviesPosterComponent(props) {
                        return(
                            <li class="one_quarter ">
                            <div class="movie-list-item">
-                             <img
+                             <Image
+                              height={200}
+                              width ={300}
                                class="movie-list-item-img"
                                src={mapPoster.image}
                                alt=""
@@ -66,7 +71,9 @@ function MoviesPosterComponent(props) {
                           <li class="one_quarter first ">
                             {" "}
                             <div class="movie-list-item">
-                              <img
+                              <Image
+                               height={200}
+                               width ={300}
                                 class="movie-list-item-img"
                                 src={mapPoster.image}
                                 alt=""
@@ -79,7 +86,9 @@ function MoviesPosterComponent(props) {
                     return(
                         <li class="one_quarter ">
                         <div class="movie-list-item">
-                          <img
+                          <Image
+                           height={200}
+                           width ={300}
                             class="movie-list-item-img"
                             src={mapPoster.image}
                             alt=""
