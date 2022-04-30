@@ -3,11 +3,22 @@ import { NavDropdown, Navbar, Nav, Container ,FormControl,Form,Button} from "rea
 import { NavLink,Link } from "react-router-dom";
 import { useNavigate } from "react-router"
 import { Formik } from "formik";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined,LogoutOutlined } from "@ant-design/icons";
 import  "./NavBar.css";
+
+import { Avatar, Image } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { useSelector, shallowEqual } from "react-redux";
 
 export const NavbarPage = () => {
   const [search, setSearach] = useState('')
+  const {isAuthorized, user} = useSelector(
+    ({auth}) => ({
+        isAuthorized: auth.user != null,
+        user: auth.user,
+    }),
+    shallowEqual
+);
   const formHandleSubmit = async () => {
     console.log(search)
      navigate(`/TopMoviesMainPage?search=${search}`);
@@ -48,20 +59,29 @@ export const NavbarPage = () => {
       
     
         </NavDropdown>  
+     
+
+        
 
         
         <Nav.Link className="NavBar text-white" href="/wishlist">WatchList</Nav.Link>
         <Nav.Link className="NavBar text-white" href="/cinemas">Watch in Cinema</Nav.Link>
-        <Nav.Link className="NavBar text-success" href="/auth/login">Login</Nav.Link>
-        <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link>
-       
+        {!isAuthorized?<><Nav.Link className="NavBar text-success" href="/auth/login">Login</Nav.Link>
+        <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link></>:<NavDropdown className="NavBar text-white" style={{color:'white',marginTop:'-5px'}} title={ <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{user.FirstName[0]}</Avatar>} id="navbarScrollingDropdown">
+        <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={``}>Profile</NavDropdown.Item>
+        {(user.Role === "admin")?<NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/statistics`}>Statistics</NavDropdown.Item>:<></>}
+                    <NavDropdown.Item className="NavBar subnavbar text-Danger logout" style={{borderBottom:'1px solid white'}}  href={`/logout`}>
+                     
+                        Logout</NavDropdown.Item>
+                 
+        </NavDropdown> }
 
       </Nav>
      
       <div class="d-flex flex-row justify-content-center ml-5"  >
   <input class="bg-dark  " onChange={(e) => setSearach(e.target.value) } width={'200px'} style={{padding:'4px 20px',alignItems:'center', borderRadius:'90px'}} type="text" placeholder="Search" aria-label="Search" />
   <button class="  ml-1" onClick={formHandleSubmit} style={{padding:'5px 8px',borderRadius:'150px',backgroundColor:'rgb(96,0,0)',border:'rgb(96,0,0),',boxShadow:'0px 0px 3px 1px white'}}>
-  <SearchOutlined style={{fontSize:'20px'}} />
+  <SearchOutlined className="logouticon" style={{fontSize:'20px'}} />
     {/* Search */}
     
     </button>

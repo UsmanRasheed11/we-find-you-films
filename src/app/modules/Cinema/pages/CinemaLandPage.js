@@ -3,7 +3,7 @@ import React from "react";
 export const CinemaLandPage = () => {
 
   return (
-{/* <div className="wrapper bgded overlay coloured" style={{backgroundImage: "url('images/demo/backgrounds/cinema2.jpg')"}}>
+<div className="wrapper bgded overlay coloured" style={{backgroundImage: "url('images/demo/backgrounds/cinema2.jpg')"}}>
   <div className="hoc container clear"> 
     <article className="center">
       <h2 className="font-x3 uppercase">Watch movie in cenima???</h2>
@@ -16,6 +16,6 @@ export const CinemaLandPage = () => {
       </footer>
     </article>
   </div>
-</div> */}
+</div>
   );
 };

@@ -23,7 +23,7 @@ export default function App({ store, persistor, basename }) {
             {/*This library only returns the location that has been active before the recent location change in the current window lifetime.*/}
               {/* Provide `react-intl` context synchronized with Redux state.  */}
                 {/* Render routes with provided `Layout`. */}
-                <ScrollToTop component={<i className="fa fa-chevron-up"></i>} style={{backgroundColor: "#bd1212", color: "#FFFFFF"}} smooth />
+                <ScrollToTop  component={<i className="fa fa-chevron-up"></i>} style={{ paddingLeft: "1.5rem", backgroundColor: "#bd1212", color: "#FFFFFF"}} smooth />
                 <MyRoutes />
           </BrowserRouter>
         </React.Suspense>
