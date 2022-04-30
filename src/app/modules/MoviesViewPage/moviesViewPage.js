@@ -48,8 +48,10 @@ function MoviesViewPage(props) {
         description={movieData?.plot || null}
         tagline={movieData?.tagline || null}
         imDbRating={movieData?.imDbRating || null}
+        trailer={movieData?.trailer?.linkEmbed || null}
         HandlerPlayTriler={HandlerPlayTriler}
         isVedioPlayer={isVedioPlayer}
+      
       
       />
     {
@@ -57,17 +59,19 @@ function MoviesViewPage(props) {
         {/************   main section of preview *********/}
      
       </>):(<>
-      
-        {/************  poster images *********/}
-        <MoviesPosterComponent Id={movieId} posters={movieData? movieData?.images?.items : null} />
-      {/************   Description Section *********/}
-      <MoviesDescriptionsComponent
+         {/************   Description Section *********/}
+         <MoviesDescriptionsComponent
       title={movieData?.fullTitle || null}
       description={movieData?.plot || null}
       rating={movieData?.imDbRating || null}
       genres={movieData?.genres || null}
       imDbRating={movieData?.imDbRating || null}
+      HandlerPlayTriler={HandlerPlayTriler}
+        isVedioPlayer={isVedioPlayer}
       />
+        {/************  poster images *********/}
+        <MoviesPosterComponent Id={movieId} posters={movieData? movieData?.images?.items : null} />
+   
       {/************   Crew Section *********/}
       {/* <MOviesCastComponent  
       // Id={movieId} actors={movieData?.actorList || null}

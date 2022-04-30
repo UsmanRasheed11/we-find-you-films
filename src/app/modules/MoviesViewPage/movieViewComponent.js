@@ -1,7 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-
+import axios from "axios";
+const cheerio = require('cheerio');
 function MovieViewComponent(props) {
+  
+
+
+
+  useEffect(()=>{
+    console.log("trailer url",props.trailer)
+    const headers = {
+      
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
+    };
+    fetch(props.trailer || 'https://www.imdb.com/video/imdb/vi3877612057/imdb/embed?format=SD&token=dStrTlB5NkkwUDoxNjUwNzM0NDAyNDA0&ref_=vi_res_stn',
+    {crossdomain: true,headers,
+      method: 'GET',
+      mode: 'no-cors',
+      withCredentials: true,
+      credentials: 'same-origin',
+    }).then((res)=>{
+      const $ = cheerio.load(res.data)
+      console.log('res',res)
+      console.log('$',$)
+
+    }).catch((error)=>{
+      console.log('error',error)
+    })
+  },[])
   //main View
   return (
     <>
@@ -16,8 +43,8 @@ function MovieViewComponent(props) {
           </div>
           <video width="100%" controls>
             <source
-              src="https://media.w3.org/2010/05/sintel/trailer.mp4"
-              type="video/mp4"
+              src={"https://media.w3.org/2010/05/sintel/trailer.mp4"}
+              // type="video/mp4"
             />
             Your browser does not support the video tag.
           </video>
@@ -53,7 +80,7 @@ function MovieViewComponent(props) {
                 <div className="content-description text-left">
                   {/* <Rate disabled defaultValue={2} /> 4/10 */}
                 </div>
-                <div className="row ">
+                {/* <div className="row ">
                   <div className="col-6 d-flex ">
                     <div>
                       <button
@@ -70,7 +97,7 @@ function MovieViewComponent(props) {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </section>
           </main>

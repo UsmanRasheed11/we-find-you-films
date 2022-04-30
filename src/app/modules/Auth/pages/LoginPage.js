@@ -27,8 +27,10 @@ const LoginPage = (props) => {
 
           <div className="container">
             <div className="row align-items-center justify-content-center">
-              <div className="col-md-7">
-                <h3 className="text-white d-flex h2">Login to <span className="mx-2"><strong >findyourfilms</strong></span></h3>
+              <div className="col-md-7 text-center">
+               
+                <h3 className="text-white h2 text-center">Login to findyourfilms</h3>
+                
                 <br />
                 <Formik
                   initialValues={{
@@ -115,11 +117,11 @@ const LoginPage = (props) => {
                       </div>
 
                       <div className="d-flex mb-5 align-items-center">
-                        <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
-                          <input type="checkbox" defaultChecked />
-                          <div className="control__indicator"></div>
+                        <label className="control control--checkbox mb-0"><span className="caption"></span>
+                          {/* <input type="checkbox" defaultChecked />
+                          <div className="control__indicator"></div> */}
                         </label>
-                        <span className="ml-auto"><a href="/" className="forgot-pass">Forgot Password</a></span>
+                        {/* <span className="ml-auto"><a href="/" className="forgot-pass">Forgot Password</a></span> */}
                       </div>
 
                       <button
@@ -128,8 +130,9 @@ const LoginPage = (props) => {
                         className="btn btn-block btn-primary" id="btn"
                       >
                         {loading?<span className="spinner-border text-light"></span>:<span className={`${loading ? "pr-3" : ""}`}>Log In</span>}
-                      </button><h5 className="text-white mt-2"><center>OR</center></h5>
-                      <Link to="/auth/register"><input type="button" value="Create account" className="btn btn-block btn-primary" id="btn2" /></Link>
+                      </button>
+                      <p className="text-white mt-2" style={{fontWeight:'bold'}}><center>OR</center></p>
+                      <Link to="/auth/register"><input type="button" value="Create a new account" className="btn btn-block btn-primary" id="btn2" /></Link>
                     </form>
                   )}
                 </Formik>

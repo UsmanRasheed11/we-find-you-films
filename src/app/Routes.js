@@ -11,14 +11,15 @@ import { shallowEqual, useSelector } from "react-redux";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/Auth";
 import { LandingPage } from "./pages/LandingPage";
-import LoginPage from "./modules/Auth/pages/LoginPage";
-import SignUpPage from "./modules/Auth/pages/SignUpPage";
+import  LoginPage  from "./modules/Auth/pages/LoginPage";
+import  SignUpPage  from "./modules/Auth/pages/SignUpPage";
 import MoviesViewPage from "./modules/MoviesViewPage/moviesViewPage";
 import { TopMoviesMainPage } from "./modules/TopMovies/pages/TopMoviesMainPage";
 import { MovieDetailsPage } from "./modules/Movies/pages/MovieDetailsPage";
 import { WatchListPage } from "./modules/Movies/pages/WatchlistPage";
 import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
 import { CinemaDetailsPage } from "./modules/Cinema/pages/CinemaDetailsPage";
+import Statistics from "./modules/Statistics/Statistics";
 
 export function MyRoutes() {
     const {isAuthorized} = useSelector(
@@ -30,7 +31,7 @@ export function MyRoutes() {
 
     return (
         <Routes>
-            {!isAuthorized ? (
+           
                 <>
                 <Route exact path="/auth/*" element={<AuthPage />}>
                 <Route path="login" element={<LoginPage />} />
@@ -39,12 +40,13 @@ export function MyRoutes() {
                 </Route>
                 <Route path="/auth" element={<Navigate from="/auth" to="/auth/login" />}/>
                 </>
-            ) : (
+          
                 /*Otherwise redirect to root page (`/`)*/
-                <Route path="/auth/login" element={<Navigate to="/" />}/>
-            )}
+                <Route from="/auth" element={<Navigate to="/" />}/>
+                <Route  path="/" element={<LandingPage />}/>
             <Route path="/logout" element={<Logout />}/>
-            <Route exact path="/*" element={<BasePage />}>
+            
+            <Route  path="Statistics" element={<Statistics />} />
             <Route exact path="" element={<LandingPage />}/>
                 <Route exact path="" element={<LandingPage />}/>
                 <Route  path="movies/:id" element={<MoviesViewPage />}/>
@@ -53,7 +55,7 @@ export function MyRoutes() {
                 <Route exact path="wishlist" element={<WatchListPage />}/>
                 <Route exact path="cinemas" element={<CinemaPage />}/>
                 <Route exact path="cinemas/:id" element={<CinemaDetailsPage />}/>
-            </Route>
+            
         </Routes>
     );
 }

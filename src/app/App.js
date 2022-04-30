@@ -9,7 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { MyRoutes } from "../app/Routes";
 import ScrollToTop from "react-scroll-to-top";
 import { LayoutSplashScreen } from "../_theme/layout";
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import 'antd/dist/antd.min.css'; // or 'antd/dist/antd.less'
 export default function App({ store, persistor, basename }) {
   return (
     /* Provide Redux store */

@@ -1,50 +1,76 @@
-import React from "react";
-import { NavDropdown, Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import React, {useState} from "react";
+import { NavDropdown, Navbar, Nav, Container ,FormControl,Form,Button} from "react-bootstrap";
+import { NavLink,Link } from "react-router-dom";
+import { useNavigate } from "react-router"
+import { Formik } from "formik";
+import { SearchOutlined } from "@ant-design/icons";
+import  "./NavBar.css";
 
 export const NavbarPage = () => {
-
+  const [search, setSearach] = useState('')
+  const formHandleSubmit = async () => {
+    console.log(search)
+     navigate(`/TopMoviesMainPage?search=${search}`);
+    // const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr?title=${values.search}`)
+    // console.log(res)
+  }
+  const navigate = useNavigate();
   return (
-    <div className="wrapper row1">
-      <header id="header" className="">
-        <Navbar expand="lg" className="d-flex flex-column justify-content-between text-white offset-md-2 p-md-0" collapseOnSelect>
-          {/* className="navbar navbar-expand-lg text-white col-md-6 col-sm-12"> */}
-          <Container className="py-0" fluid>
+    <>
+<Navbar bg="" className="NavBar text-white NavBarMain"  expand="lg">
+  <Container fluid>
+    <Navbar.Brand  className="NavBar text-white" style={{fontSize:'30px'}} href="#">
+     findyourfilms
+      
+      
+      </Navbar.Brand>
+    <Navbar.Toggle aria-controls="navbarScroll" />
+    <Navbar.Collapse id="navbarScroll" className="justify-content-end">
+      <Nav
+        className="me-auto my-2 my-lg-0"
+        style={{ Height: '100px' }}
+        navbarScroll
+      >
+        <Nav.Link className="NavBar text-white" href="/">Home</Nav.Link>
+        <Nav.Link className="NavBar text-white" href="/TopMoviesMainPage">Top Movies</Nav.Link>
+        <Nav.Link className="NavBar text-white" href="/TopMoviesMainPage">Latest Movies</Nav.Link>
 
-            <div id="logo">
-              <h1><a href="/">findyourfilms</a></h1>
+        <NavDropdown className="NavBar text-white" style={{color:'white'}} title="Movie By Genre" id="navbarScrollingDropdown">
+        <NavDropdown.Item className="NavBar subnavbar text-white"style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=action&runtime=100,&sort=user_rating,desc`}>Action</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=comedy&runtime=100,&sort=user_rating,desc`}>Comedy</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=thriller&runtime=100,&sort=user_rating,desc`}>Thriller</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=adventure&runtime=100,&sort=user_rating,desc`}>Adventure</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=rommantic&runtime=100,&sort=user_rating,desc`}>Rommantic</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=fantacy&runtime=100,&sort=user_rating,desc`}>Fantacy</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=horror&runtime=100,&sort=user_rating,desc`}>Horror</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/TopMoviesMainPage?genres=crime&runtime=100,&sort=user_rating,desc`}>Crime</NavDropdown.Item>
+                    <NavDropdown.Item className="NavBar subnavbar text-white"  href={`/TopMoviesMainPage?genres=sci-fi&runtime=100,&sort=user_rating,desc`}>Science Fiction</NavDropdown.Item>
+      
+    
+        </NavDropdown>  
 
-            </div>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav id="mainav" className="mt-2 offset-md-3">
-                <li className="mx-3" ><NavLink to="/">Home</NavLink></li>
-                <li className="mx-3"><NavLink to="/movies">Movies</NavLink>
+        
+        <Nav.Link className="NavBar text-white" href="/wishlist">WatchList</Nav.Link>
+        <Nav.Link className="NavBar text-white" href="/cinemas">Watch in Cinema</Nav.Link>
+        <Nav.Link className="NavBar text-success" href="/auth/login">Login</Nav.Link>
+        <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link>
+       
 
-                </li>
-                <li className="d-md-block">
-                  <NavDropdown id="nav-dropdown-dark"
-                    title="Top genre"
-                    menuVariant="dark" className="mx-3">
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=action&runtime=100,&sort=user_rating,desc`}>Action</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=comedy&runtime=100,&sort=user_rating,desc`}>Comedy</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=thriller&runtime=100,&sort=user_rating,desc`}>Thriller</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=adventure&runtime=100,&sort=user_rating,desc`}>Adventure</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=rommantic&runtime=100,&sort=user_rating,desc`}>Rommantic</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=fantacy&runtime=100,&sort=user_rating,desc`}>Fantacy</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=horror&runtime=100,&sort=user_rating,desc`}>Horror</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=crime&runtime=100,&sort=user_rating,desc`}>Crime</NavDropdown.Item>
-                    <NavDropdown.Item className="px-1" href={`/TopMoviesMainPage?genres=sci-fi&runtime=100,&sort=user_rating,desc`}>Science Fiction</NavDropdown.Item>
-                  </NavDropdown>
-                </li>
-                <li className="mx-3"><NavLink to="/wishlist">Watchlist</NavLink></li>
-                <li className="mx-3"><NavLink to="/cinemas">Watch in Cinema</NavLink></li>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-
-      </header>
-    </div>
+      </Nav>
+     
+      <div class="d-flex flex-row justify-content-center ml-5"  >
+  <input class="bg-dark  " onChange={(e) => setSearach(e.target.value) } width={'200px'} style={{padding:'4px 20px',alignItems:'center', borderRadius:'90px'}} type="text" placeholder="Search" aria-label="Search" />
+  <button class="  ml-1" onClick={formHandleSubmit} style={{padding:'5px 8px',borderRadius:'150px',backgroundColor:'rgb(96,0,0)',border:'rgb(96,0,0),',boxShadow:'0px 0px 3px 1px white'}}>
+  <SearchOutlined style={{fontSize:'20px'}} />
+    {/* Search */}
+    
+    </button>
+</div>
+     
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
+    
+    </>
   );
 };

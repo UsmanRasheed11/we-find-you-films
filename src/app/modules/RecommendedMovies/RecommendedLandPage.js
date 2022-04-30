@@ -8,7 +8,7 @@ import { useLocation } from "react-router";
 
 
 
-export const TopMoviesMainPage = (props) => {
+export const RecommendedLandPage = (props) => {
   console.log(props)
   const location = useLocation();
   const [totalPage, setTotalPage] = useState(0)
@@ -65,42 +65,22 @@ export const TopMoviesMainPage = (props) => {
     return (
       <>
         <section className="text-white">
-          {!loading ? location.search ? <h1 className="text-white mt-4">Search Result</h1> : <h1 className="text-white mt-4"> TOP 250 Movies</h1> : <></>}
+           <h1 className="text-white mt-4"> Suggested Movies</h1> 
           {/* ********* movies display area started here *********** */}
           {!loading ?
             <>
               <div className="container-fluid mt-1 p-5">
                 <div id="movie-content" className="row d-flex justify-content-center">
                   {Data && Data.map((movie, index) => {
-                    if(props.isMainPage){
-                      if (index < 4) return (<MoviesCard key={movie.id} movies={movie} />)
-                      return null
-                    }else{
-                    if (index >= minIndex && index < maxIndex) return (<MoviesCard key={movie.id} movies={movie} />)
-                    return null
-                  }
+                   return (<MoviesCard key={movie.id} movies={movie} />)
+                  
+                  
                   })}
                 </div>
               </div>
-              {/* ********* movies display area ended here *********** */}
 
-              {/* ********* pagination started here *********** */}
-             {props.isMainPage?(<>
-              <p className="center nospace"><a className="btn viewmorebtn" href="/TopMoviesMainPage">view more {">>"}</a></p><b><br /></b>
-             </>):(<>
-              <div className="pb-5">
-                <Pagination
-                  className="Pagination "
-                  responsive={true}
-                  current={current}
-                  pageSize={pageSize}
-                  total={totalPage}
-                  onChange={handlePaginationChange} />
-              </div>
-             </>)}
-            
             </> : <div className="d-flex align-items-center justify-content-center vh-100"><div className="spinner-border text-light" role="status"></div></div>}
-          {/* ********* pagination ended here *********** */}
+        
         </section>
       </>
     );
