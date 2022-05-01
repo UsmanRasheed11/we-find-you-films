@@ -30,10 +30,10 @@ function MoviesDescriptionsComponent(props) {
             <div>
               {" "}
               <button
-                class="info py-3 ml-2"
+                className="info py-3 ml-2"
                 onClick={openNotification}
               >
-                <i class="fas fa-plus-circle"></i> Add to WatchList
+                <i className="fas fa-plus-circle"></i> Add to WatchList
               </button>
             </div>
           </div>

@@ -29,15 +29,14 @@ function MoviesPosterComponent(props) {
                        if(index<4){
                          if(index === 0){
                            return(
-                             <li class="one_quarter first ">
+                             <li className="one_quarter first ">
                                {" "}
-                               <div class="movie-list-item">
+                               <div className="movie-list-item">
                                  <Image
                                  height={200}
                                  width ={300}
-                                   class="movie-list-item-img"
+                                   className="movie-list-item-img"
                                    src={mapPoster.image}
-                                   alt=""
                                    alt=""
                                  />
                                </div>
@@ -45,18 +44,17 @@ function MoviesPosterComponent(props) {
                            )
                          }
                        return(
-                           <li class="one_quarter ">
-                           <div class="movie-list-item">
+                           <li className="one_quarter ">
+                           <div className="movie-list-item">
                              <Image
                               height={200}
                               width ={300}
-                               class="movie-list-item-img"
+                               className="movie-list-item-img"
                                src={mapPoster.image}
                                alt=""
-                               alt=" /"
                              />
                
-                             {/* <button class="movie-list-item-button">view </button> */}
+                             {/* <button className="movie-list-item-button">view </button> */}
                            </div>
                          </li>
                        )
@@ -68,15 +66,14 @@ function MoviesPosterComponent(props) {
                     if(index<4){
                       if(index === 0){
                         return(
-                          <li class="one_quarter first ">
+                          <li className="one_quarter first ">
                             {" "}
-                            <div class="movie-list-item">
+                            <div className="movie-list-item">
                               <Image
                                height={200}
                                width ={300}
-                                class="movie-list-item-img"
+                                className="movie-list-item-img"
                                 src={mapPoster.image}
-                                alt=""
                                 alt=""
                               />
                             </div>
@@ -84,18 +81,17 @@ function MoviesPosterComponent(props) {
                         )
                       }
                     return(
-                        <li class="one_quarter ">
-                        <div class="movie-list-item">
+                        <li className="one_quarter ">
+                        <div className="movie-list-item">
                           <Image
                            height={200}
                            width ={300}
-                            class="movie-list-item-img"
+                            className="movie-list-item-img"
                             src={mapPoster.image}
                             alt=""
-                            alt=" /"
                           />
             
-                          {/* <button class="movie-list-item-button">view </button> */}
+                          {/* <button className="movie-list-item-button">view </button> */}
                         </div>
                       </li>
                     )

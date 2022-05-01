@@ -92,8 +92,8 @@ function MovieViewComponent(props) {
                     </div>
                     <div>
                       {" "}
-                      <button class="info" onClick={() => console.log("hello")}>
-                        <i class="fas fa-plus-circle"></i> Add to WatchList
+                      <button className="info" onClick={() => console.log("hello")}>
+                        <i className="fas fa-plus-circle"></i> Add to WatchList
                       </button>
                     </div>
                   </div>

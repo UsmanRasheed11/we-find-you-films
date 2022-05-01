@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
+import { Rate,message,notification } from "antd";
 import {connect} from "react-redux";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
@@ -13,6 +14,16 @@ const SignUpPage = (props) => {
 
   const enableLoading = () => {
     setLoading(true);
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: 'SignUp Successfully',
+      description:"New Account has been Created Successfully",
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
   };
 
   const disableLoading = () => {
@@ -91,6 +102,7 @@ const SignUpPage = (props) => {
                       values.Age
                     )
                       .then(({ data: { accessToken } }) => {
+                        openNotification();
                         props.register(accessToken);
                         disableLoading();
                       })

@@ -78,9 +78,9 @@ export const NavbarPage = () => {
 
       </Nav>
      
-      <div class="d-flex flex-row justify-content-center ml-5"  >
-  <input class="bg-dark  " onChange={(e) => setSearach(e.target.value) } width={'200px'} style={{padding:'4px 20px',alignItems:'center', borderRadius:'90px'}} type="text" placeholder="Search" aria-label="Search" />
-  <button class="  ml-1" onClick={formHandleSubmit} style={{padding:'5px 8px',borderRadius:'150px',backgroundColor:'rgb(96,0,0)',border:'rgb(96,0,0),',boxShadow:'0px 0px 3px 1px white'}}>
+      <div className="d-flex flex-row justify-content-center ml-5"  >
+  <input className="bg-dark  " onChange={(e) => setSearach(e.target.value) } width={'200px'} style={{padding:'4px 20px',alignItems:'center', borderRadius:'90px'}} type="text" placeholder="Search" aria-label="Search" />
+  <button className="  ml-1" onClick={formHandleSubmit} style={{padding:'5px 8px',borderRadius:'150px',backgroundColor:'rgb(96,0,0)',border:'rgb(96,0,0),',boxShadow:'0px 0px 3px 1px white'}}>
   <SearchOutlined className="logouticon" style={{fontSize:'20px'}} />
     {/* Search */}
     
