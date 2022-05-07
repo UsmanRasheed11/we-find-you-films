@@ -27,39 +27,40 @@ const movies = [
 
 const WatchListMovieCard = ({ movie }) => {
   return (
-    <>
-      <div className="product">
+    <div className="product">
 
-        <img src={movie.src} alt="" />
+      <img src={movie.src} alt="" />
 
-        <div className="product-info">
+      <div className="product-info col-6">
 
-          <h3 className="product-name">{movie.title}</h3>
+        <h3 className="product-name text-white">{movie.title}</h3>
 
-          <p className="product-price">{movie.description}</p>
+        <p className="product-price">{movie.description}</p>
 
-          {/* <h4 className="product-offer"></h4> */}
-
-          <p className="product-remove">
-
-            <i className="fa fa-trash" aria-hidden="true"></i>
-
-            <span className="remove">Remove</span>
-
-          </p>
-
-        </div>
+        {/* <h4 className="product-offer"></h4> */}
 
       </div>
-    </>
+      <div className="product-info">
+      <p className="product-remove">
+
+        <i className="fa fa-trash" aria-hidden="true"></i>
+
+        <span className="remove mx-1">Remove</span>
+
+      </p>
+      </div>
+
+    </div>
   );
 }
 
 export const WatchListPage = () => {
 
   return (
-    <>
-      <div className="wrapper bgded overlay" style={{ backgroundImage: "url(images/demo/bg2.jpeg)" }}>
+    <section className="text-white">
+      <div className="wrapper bgded overlay"
+      // style={{ backgroundImage: "url(images/demo/bg2.jpeg)" }}
+      >
 
         <main className="hoc container clear">
           <header className="heading"><u>Watchlist</u></header><br /><br />
@@ -70,6 +71,6 @@ export const WatchListPage = () => {
 
         </main>
       </div>
-    </>
+    </section>
   );
 };
