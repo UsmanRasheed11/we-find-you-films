@@ -4,7 +4,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import axios from "axios";
 import * as _redux from "./redux";
-// import { injectStore } from "./utils/axios";
 import store, { persistor } from "./redux/store";
 import reportWebVitals from "./utils/reportWebVitals";
 //  import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,8 +15,6 @@ import App from "./app/App";
 import "./index.css";
 
 const { PUBLIC_URL } = process.env;
-
-// injectStore(store);
 
 _redux.setupAxios(axios, store);
 
