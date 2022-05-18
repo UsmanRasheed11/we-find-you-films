@@ -2,17 +2,6 @@ import React from "react";
 import { Rate,message,notification } from "antd";
 function MoviesDescriptionsComponent(props) {
 
-  const openNotification = () => {
-    notification.open({
-      message: 'Added to WishList',
-      description:
-        `${props?.title || ''} movie added to wishlist`,
-      onClick: () => {
-        console.log('Notification Clicked!');
-      },
-    });
-  };
-
   return (
     <div className="text-left mx-5 MoviesDescriptionsComponent text-white pb-3">
       {/* Buttons */}
@@ -31,7 +20,7 @@ function MoviesDescriptionsComponent(props) {
               {" "}
               <button
                 className="info py-3 ml-2"
-                onClick={openNotification}
+                onClick={props.addtoWatchList}
               >
                 <i className="fas fa-plus-circle"></i> Add to WatchList
               </button>

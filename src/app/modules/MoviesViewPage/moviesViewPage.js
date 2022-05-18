@@ -6,12 +6,18 @@ import MoviesPosterComponent from "./moviesPosterComponent";
 import "./moviesviewpage.css";
 import MovieViewComponent from "./movieViewComponent";
 import DemoData from "./moviedetail.json";
+import { useDispatch } from "react-redux";
+import * as actions from "../Movies/_redux/watchlist/watchlistActions";
+import { useParams } from "react-router";
+import { notification } from "antd";
 
 function MoviesViewPage(props) {
 
   const [movieId, setMovieId] = useState(null);
   const [movieData, setmovieData] = useState(null);
   const [isVedioPlayer, setIsVedioPlayer] = useState(false);
+  const dispatch = useDispatch();
+  const params = useParams();
 
   const HandlerPlayTriler = () => {
     setIsVedioPlayer(!isVedioPlayer)
@@ -39,11 +45,33 @@ function MoviesViewPage(props) {
     setmovieData(DemoData)
   }, []);
 
+  const openNotification = (res) => {
+    notification.open({
+      message: res.message,
+      description:
+      res.status?`${movieData?.fullTitle || ""} movie added to wishlist`:"",
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+      className: res.status?"bg-success":"",
+      style: {backgroundColor: !res.status? "#410000":""}
+    });
+  };
+
+  const addtoWatchList = () => {
+    dispatch(actions.addMovieToWatchList({ movieId: movieId||params?.id, image: movieData?.image||"https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg",
+    title: movieData?.fullTitle||"Demo Title", description: movieData?.plot||"Demo Description" }))
+    .then(response => {
+      console.log(response)
+      openNotification(response);
+    })
+  }
+
   return (
     <>
-      <MovieViewComponent 
-      Id={movieId}
-       title={movieData?.fullTitle || null}
+      <MovieViewComponent
+        Id={movieId}
+        title={movieData?.fullTitle || null}
         image={movieData?.image || null}
         description={movieData?.plot || null}
         tagline={movieData?.tagline || null}
@@ -51,37 +79,38 @@ function MoviesViewPage(props) {
         trailer={movieData?.trailer?.linkEmbed || null}
         HandlerPlayTriler={HandlerPlayTriler}
         isVedioPlayer={isVedioPlayer}
-      
-      
+
+
       />
-    {
-      isVedioPlayer?(<>
-        {/************   main section of preview *********/}
-     
-      </>):(<>
-         {/************   Description Section *********/}
-         <MoviesDescriptionsComponent
-      title={movieData?.fullTitle || null}
-      description={movieData?.plot || null}
-      rating={movieData?.imDbRating || null}
-      genres={movieData?.genres || null}
-      imDbRating={movieData?.imDbRating || null}
-      HandlerPlayTriler={HandlerPlayTriler}
-        isVedioPlayer={isVedioPlayer}
-      />
-        {/************  poster images *********/}
-        <MoviesPosterComponent Id={movieId} posters={movieData? movieData?.images?.items : null} />
-   
-      {/************   Crew Section *********/}
-      {/* <MOviesCastComponent  
+      {
+        isVedioPlayer ? (<>
+          {/************   main section of preview *********/}
+
+        </>) : (<>
+          {/************   Description Section *********/}
+          <MoviesDescriptionsComponent
+            title={movieData?.fullTitle || null}
+            description={movieData?.plot || null}
+            rating={movieData?.imDbRating || null}
+            genres={movieData?.genres || null}
+            imDbRating={movieData?.imDbRating || null}
+            HandlerPlayTriler={HandlerPlayTriler}
+            isVedioPlayer={isVedioPlayer}
+            addtoWatchList={addtoWatchList}
+          />
+          {/************  poster images *********/}
+          <MoviesPosterComponent Id={movieId} posters={movieData ? movieData?.images?.items : null} />
+
+          {/************   Crew Section *********/}
+          {/* <MOviesCastComponent  
       // Id={movieId} actors={movieData?.actorList || null}
       
       /> */}
-      </>)
-    }
-    
-     
-    
+        </>)
+      }
+
+
+
     </>
   );
 }

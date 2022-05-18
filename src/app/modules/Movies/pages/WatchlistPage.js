@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../_redux/watchlist/watchlistActions";
 import "../../../../_theme/layout/styles/layout.css";
 
 const movies = [
@@ -55,7 +57,17 @@ const WatchListMovieCard = ({ movie }) => {
 }
 
 export const WatchListPage = () => {
-
+  const { currentState } = useSelector(
+    (state) => ({ currentState: state.watchList }),
+    shallowEqual
+  );
+  const { totalCount, entities, listLoading } = currentState;
+  console.log(entities);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.getWatchList());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
   return (
     <section className="text-white">
       <div className="wrapper bgded overlay"

@@ -88,7 +88,7 @@ const LoginPage = (props) => {
                       className="form"
                     >
                       <div className="form-group first">
-                        <Field type="email" name="Email" component={Input} label="Email" >
+                        <Field type="email" name="Email" label="Email" >
                           {({ field }) => (
                             <div>
                               <input
@@ -102,7 +102,7 @@ const LoginPage = (props) => {
                         </Field>
                       </div>
                       <div className="form-group last mb-3">
-                        <Field type="password" name="Password" component={Input} label="Password">
+                        <Field type="password" name="Password" label="Password">
                           {({ field }) => (
                             <div>
                               <input
@@ -131,7 +131,7 @@ const LoginPage = (props) => {
                       >
                         {loading?<span className="spinner-border text-light"></span>:<span className={`${loading ? "pr-3" : ""}`}>Log In</span>}
                       </button>
-                      <p className="text-white mt-2" style={{fontWeight:'bold'}}><center>OR</center></p>
+                      <p className="text-white mt-2" style={{fontWeight:'bold'}}><span className="text-center">OR</span></p>
                       <Link to="/auth/register"><input type="button" value="Create a new account" className="btn btn-block btn-primary" id="btn2" /></Link>
                     </form>
                   )}

@@ -64,7 +64,7 @@ export const NavbarPage = () => {
         
 
         
-        <Nav.Link className="NavBar text-white" href="/wishlist">WatchList</Nav.Link>
+        {isAuthorized?<Nav.Link className="NavBar text-white" href="/wishlist">WatchList</Nav.Link>:<></>}
         <Nav.Link className="NavBar text-white" href="/cinemas">Watch in Cinema</Nav.Link>
         {!isAuthorized?<><Nav.Link className="NavBar text-success" href="/auth/login">Login</Nav.Link>
         <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link></>:<NavDropdown className="NavBar text-white" style={{color:'white',marginTop:'-5px'}} title={ <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{user.FirstName[0]}</Avatar>} id="navbarScrollingDropdown">
