@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
-import { Rate,message,notification } from "antd";
-import {connect} from "react-redux";
+import { notification } from "antd";
+import { connect } from "react-redux";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
 import "../../../../_theme/fonts/icomoon/style.css";
 import * as auth from "../_redux/authRedux";
 import { register } from "../_redux/authCrud";
-import {Input} from "../../../../_theme/_partials/controls"
-import { Link } from "react-router-dom";
+import { Input } from "../../../../_theme/_partials/controls"
+import Autocomplete from '@mui/material/Autocomplete';
+import { TextField } from "@material-ui/core";
+
 const SignUpPage = (props) => {
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +21,7 @@ const SignUpPage = (props) => {
   const openNotification = () => {
     notification.open({
       message: 'SignUp Successfully',
-      description:"New Account has been Created Successfully",
+      description: "New Account has been Created Successfully",
       onClick: () => {
         console.log('Notification Clicked!');
       },
@@ -31,14 +33,14 @@ const SignUpPage = (props) => {
   };
   return (
     <>
-      <div className="d-lg-flex half" style={{Height:'100vh'}}>
+      <div className="d-lg-flex half" style={{ Height: '100vh' }}>
         <div className="bg order-1 order-md-2" style={{ backgroundImage: "url(/images/cinema.jpg)" }}></div>
-        <div className="contents order-2 order-md-1" style={{backgroundAttachment:'fixed' }}>
+        <div className="contents order-2 order-md-1" style={{ backgroundAttachment: 'fixed' }}>
 
-          <div className="container" style={{marginTop:'-60px'}} >
+          <div className="container" style={{ marginTop: '-60px' }} >
             <div className="row align-items-center justify-content-center">
               <div className="col-md-7">
-              <h3 className="text-white text-center h2" >Create A New Account</h3><br />
+                <h3 className="text-white text-center h2" >Create A New Account</h3><br />
 
                 <Formik
                   initialValues={{
@@ -46,9 +48,7 @@ const SignUpPage = (props) => {
                     LastName: "",
                     Email: "",
                     Password: "",
-                    Gener1: "",
-                    Gener2: "",
-                    Gener3: "",
+                    Genere: "",
                     Age: '',
                   }}
                   validate={values => {
@@ -73,14 +73,8 @@ const SignUpPage = (props) => {
                     if (!values.Password) {
                       errors.Password = "Required Fields";
                     }
-                    if (!values.Gener1) {
-                      errors.Gener1 = "Required Fields";
-                    }
-                    if (!values.Gener2) {
-                      errors.Gener2 = "Required Fields";
-                    }
-                    if (!values.Gener3) {
-                      errors.Gener3 = "Required Fields";
+                    if (values.Genere.length < 3) {
+                      errors.Genere = "Required Fields";
                     }
                     if (values.Age <= 1) {
                       errors.Age = "Required Fields ";
@@ -96,9 +90,7 @@ const SignUpPage = (props) => {
                       values.FirstName,
                       values.LastName,
                       values.Password,
-                      values.Gener1,
-                      values.Gener2,
-                      values.Gener3,
+                      values.Genere,
                       values.Age
                     )
                       .then(({ data: { accessToken } }) => {
@@ -120,6 +112,7 @@ const SignUpPage = (props) => {
                     status,
                     errors,
                     touched,
+                    setFieldValue,
                     handleSubmit,
                     isSubmitting,
                   }) => (
@@ -187,48 +180,26 @@ const SignUpPage = (props) => {
                         </Field>
                       </div>
                       <div className="form-group last mb-3">
-                      <Field type="text" name="Gener1" component={Input} label="Gener1">
-                          {({ field }) => (
-                            <div>
-                              <input
-                                type="text" {...field}
-                                className="form-control"
-                                placeholder="enter your Gener1" />
-                              {touched.Gener1 &&
-                                errors.Gener1 && <div className="text-white">{errors.Gener1}</div>}
-                            </div>
+                        <Autocomplete
+                          multiple
+                          options={["Action", "Comedy", "Thriller", "Adventure", "Rommantic", "Fantacy", "Horror", "Crime", "Science Fiction"]}
+                          className="form-control my-3"
+                          getOptionLabel={(option) => option}
+                          limitTags={2}
+                          getOptionDisabled={() => (values.Genere.length > 2 ? true : false)}
+                          filterSelectedOptions
+                          onChange={(e, value) => setFieldValue("Genere", value)}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              placeholder="Select Genre"
+                            />
                           )}
-                        </Field>
-                        </div>
-                        <div className="form-group last mb-3">
-                        <Field type="text" name="Gener2" component={Input} label="Gener2">
-                          {({ field }) => (
-                            <div>
-                              <input
-                                type="text" {...field}
-                                className="form-control"
-                                placeholder="enter your Gener2" />
-                              {touched.Gener2 &&
-                                errors.Gener2 && <div className="text-white">{errors.Gener2}</div>}
-                            </div>
-                          )}
-                        </Field>
-                        </div>
-                        <div className="form-group last mb-3">
-                        <Field type="text" name="Gener3" component={Input} label="Gener3">
-                          {({ field }) => (
-                            <div>
-                              <input
-                                type="text" {...field}
-                                className="form-control"
-                                placeholder="enter your Gener3" />
-                              {touched.Gener3 &&
-                                errors.Gener3 && <div className="text-white">{errors.Gener3}</div>}
-                            </div>
-                          )}
-                        </Field>
-                        </div>
-                        <div className="form-group last mb-3">
+                        />
+                        {touched.Genere &&
+                          errors.Genere && <div className="text-white">{errors.Genere}</div>}
+                      </div>
+                      <div className="form-group last mb-3">
                         <Field type="string" name="Age" component={Input} label="Age">
                           {({ field }) => (
                             <div>
@@ -241,7 +212,7 @@ const SignUpPage = (props) => {
                             </div>
                           )}
                         </Field>
-                        </div>
+                      </div>
                       <div className="d-flex mb-5 align-items-center">
                         <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
                           <input type="checkbox" defaultChecked />
@@ -258,7 +229,7 @@ const SignUpPage = (props) => {
                         {loading && (
                           <span className="spinner-border text-light"></span>
                         )}
-                    
+
                       </button>
                       {/* <p className="text-white mt-2" style={{fontWeight:'bold'}}><center>OR</center></p>
                       <Link to="/auth/login "><input type="button" value="login" className="btn btn-block btn-primary" id="btn2" /></Link>

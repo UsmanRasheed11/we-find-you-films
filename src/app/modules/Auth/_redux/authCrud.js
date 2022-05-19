@@ -11,8 +11,8 @@ export function login(Email, Password) {
   return axios.post(LOGIN_URL, { Email, Password });
 }
 
-export function register( Email,FirstName, LastName, Password, Gener1, Gener2, Gener3, Age ) {
-  return axios.post(REGISTER_URL, { FirstName, LastName, Email, Password, Gener1, Gener2, Gener3, Age });
+export function register( Email,FirstName, LastName, Password, Genere, Age ) {
+  return axios.post(REGISTER_URL, { FirstName, LastName, Email, Password, Genere, Age });
 }
 
 export function requestPassword(email) {
