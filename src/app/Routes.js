@@ -21,8 +21,8 @@ import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
 import { CinemaDetailsPage } from "./modules/Cinema/pages/CinemaDetailsPage";
 
 export function MyRoutes() {
-    const {isAuthorized} = useSelector(
-        ({auth}) => ({
+    const { isAuthorized } = useSelector(
+        ({ auth }) => ({
             isAuthorized: auth.user != null,
         }),
         shallowEqual
@@ -32,27 +32,27 @@ export function MyRoutes() {
         <Routes>
             {!isAuthorized ? (
                 <>
-                <Route exact path="/auth/*" element={<AuthPage />}>
-                <Route path="login" element={<LoginPage />} />
-                <Route path="register" element={<SignUpPage />} />
-                
-                </Route>
-                <Route path="/auth" element={<Navigate from="/auth" to="/auth/login" />}/>
+                    <Route exact path="/auth/*" element={<AuthPage />}>
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="register" element={<SignUpPage />} />
+
+                    </Route>
+                    <Route path="/auth" element={<Navigate from="/auth" to="/auth/login" />} />
                 </>
             ) : (
                 /*Otherwise redirect to root page (`/`)*/
-                <Route path="/auth/login" element={<Navigate to="/" />}/>
+                <Route path="/auth/*" element={<Navigate to="/" />} />
             )}
-            <Route path="/logout" element={<Logout />}/>
+            <Route path="/logout" element={<Logout />} />
             <Route exact path="/*" element={<BasePage />}>
-            <Route exact path="" element={<LandingPage />}/>
-                <Route exact path="" element={<LandingPage />}/>
-                <Route  path="movies/:id" element={<MoviesViewPage />}/>
-                <Route  path="TopMoviesMainPage" element={<TopMoviesMainPage />}/>
+                <Route exact path="" element={<LandingPage />} />
+                <Route exact path="" element={<LandingPage />} />
+                <Route path="movies/:id" element={<MoviesViewPage />} />
+                <Route path="TopMoviesMainPage" element={<TopMoviesMainPage />} />
                 {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
-                <Route exact path="wishlist" element={<WatchListPage />}/>
-                <Route exact path="cinemas" element={<CinemaPage />}/>
-                <Route exact path="cinemas/:id" element={<CinemaDetailsPage />}/>
+                <Route exact path="wishlist" element={<WatchListPage />} />
+                <Route exact path="cinemas" element={<CinemaPage />} />
+                <Route exact path="cinemas/:id" element={<CinemaDetailsPage />} />
             </Route>
         </Routes>
     );

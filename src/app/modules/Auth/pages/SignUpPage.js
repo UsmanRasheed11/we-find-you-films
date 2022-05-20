@@ -93,9 +93,10 @@ const SignUpPage = (props) => {
                       values.Genre,
                       values.Age
                     )
-                      .then(({ data: { accessToken } }) => {
+                      .then(({ data }) => {
                         openNotification();
-                        props.register(accessToken);
+                        console.log(data)
+                        props.register(data.token);
                         disableLoading();
                       })
                       .catch(() => {
