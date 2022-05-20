@@ -1,7 +1,10 @@
-import React from "react";
+import React ,{useEffect, useState}from "react";
 import "../../../../_theme/layout/styles/layout.css";
 import "./cinemapage.css";
-
+import { Modal, Button,message } from 'antd';
+import { WarningOutlined } from '@ant-design/icons';
+import {Cinema} from "../../../../Api/Api";
+import { Divider } from 'antd';
 const cinemas = [
   {
     id: 1,
@@ -41,16 +44,41 @@ const cinemas = [
   },
 ]
 
-const CinemaListCard = ({ cinema, first }) => {
+const CinemaListCard = ({ cinema, first,DeleteCinemaHandler }) => {
   console.log(first)
   return (
       <li className={`one_third my-1 ${first?"first":""}`}>
         <article className="element">
-          <figure><img src={cinema.image} alt={cinema.name} />
-            <figcaption><a className="btn small" href={`/cinemas/${cinema.id}`}>View</a></figcaption>
+          <figure><img src={cinema.Image} alt={cinema.Name} style={{width:'288px',height:'180'}} />
+            <figcaption ><a style={{marginTop:'-130px'}} onClick={()=>DeleteCinemaHandler(cinema._id)} className="btn small bgRedBtn">Delete</a></figcaption>
+            <figcaption ><a className="btn small bgRedBtn" href={`/cinemas/${cinema._id}`}>View</a></figcaption>
           </figure>
-          <h6 className="cinemaname" ><a href={`/cinemas/${cinema.id}`}>{cinema.name}</a></h6>
-          <p>{cinema.address}</p>
+          <h6 className="cinemaname" ><a href={`/cinemas/${cinema.id}`}>{cinema.Name}</a></h6>
+          <p >{cinema.City}</p>
+          <p style={{marginTop:'-10px'}}>{cinema.PhoneNumber}</p>
+          <p style={{marginTop:'-10px'}} > {cinema.Address}</p>
+
+        </article>
+      </li>
+  );
+}
+
+const SearchByGenreList = ({ item, first,DeleteCinemaHandler }) => {
+  console.log(first)
+  return (
+      <li className={`one_third my-1 ${first?"first":""}`}>
+        <article className="element">
+          <figure><img src={item.Image} alt={'loading...'} />
+            {/* <figcaption ><a className="btn small" href={`/cinemas/${item._id}`}>View</a></figcaption> */}
+          </figure>
+          <h6 className="cinemaname text-white" style={{fontWeight:'bold'}} ><a >{item.Name}</a></h6>
+          <p >{item.Genre}</p>
+          <p style={{marginTop:'-10px'}}>{item.Date}   {item.Time}</p>
+          <Divider className=" text-white">Cinema Details</Divider>
+          <p className="cinemaname text-white" style={{fontWeight:'bold'}} >{item.Cinema[0].Name}</p>
+          <p >{item.Cinema[0].City}</p>
+          <p style={{marginTop:'-10px'}}>{item.Cinema[0].PhoneNumber}</p>
+          <p style={{marginTop:'-10px'}} > {item.Cinema[0].Address}</p>
 
         </article>
       </li>
@@ -58,23 +86,276 @@ const CinemaListCard = ({ cinema, first }) => {
 }
 
 const CinemaSearchResultPage = ({ cinemas }) => {
+  const [modal, setModal] =useState(false)
+  const [cinemaName, setCinemaName] =useState('')
+  const [cinemaAddress, setcinemaAddress] =useState('')
+  const [cinemaPhoneNumber, setcinemaPhoneNumber] =useState('')
+  const [cinemaCity, setcinemacinemaCity] =useState('')
+  const [image, setimage] =useState(null)
+  const [cinema, setcinema] =useState([])
+  const [searchGenereMovies, setsearchGenereMovies] =useState(null)
+  const [genre, setGenre] =useState('Action')
+
+  useEffect(() => {
+    fetchData()
+    // searchCinemaAndMoviesByGenre()
+  }, []);
+
+  async function searchCinemaAndMoviesByGenre() {
+    console.log("genre",genre)
+    const responce = await Cinema.getMovieByGenre({Genre:genre})
+    console.log("responce : ",responce)
+    if(responce?.data?.success){
+      setsearchGenereMovies(responce.data.Record)
+    }else{
+      setsearchGenereMovies([])
+    }
+  }
+
+  async function fetchData() {
+    const responce = await Cinema.getAll()
+    console.log("responce : ",responce)
+    if(responce?.data?.Record){
+      setcinema(responce.data.Record)
+    }
+    
+  }
+
+  const DeleteCinemaHandler= async(Id)=>{
+    console.log("DeleteCinemaHandler : ",Id)
+    const responce = await Cinema.Delete({Id:Id })
+    console.log(responce.data);
+    if(responce.data.success){
+      message.success("Cinema record deleted successfully")
+    }
+    fetchData();
+  }
+ 
+
+
+
+
+  const AddCinemaHandler= async()=>{
+    if(image === null){
+      message.error("must upload picture of cinema")
+    }else{
+    console.log(image)
+    try {
+      const formData = new FormData()
+      formData.append('Name',cinemaName)
+      formData.append('Address',cinemaAddress)
+      formData.append('PhoneNumber',cinemaPhoneNumber)
+      formData.append('City',cinemaCity)
+      formData.append('Image',image)
+
+      const responce = await Cinema.Add(formData)
+      if(responce.data.success === true){
+        console.log(responce)
+        fetchData()
+        message.success("New Cinema record added successfully")
+        
+      }
+      else{
+        message.error("you have already added cinema with this Name")
+      }
+      setModal(false)
+      
+    } catch (error) {
+      console.log("error :",error)
+      message.error("you have already added cinema with this Name")
+      setModal(false)
+}
+    }
+  }
+
+
   if (cinemas.length > 0) {
     return (
       <>
+
         <div className="wrapper row3" id='cinemaMain'>
+            {/* add cinema button */}
+            <div class="container">
+          <div class="row">
+              <div class="col-md-12  text-right">
+                  <button type="button"onClick={()=>{
+                    setimage(null);setcinemaAddress('');setCinemaName('')
+                  setcinemaPhoneNumber('');setModal(true);
+                    }}  class="btn btn-warning bgRedBtn">Add New Cinema</button>
+              </div>
+          </div>
+          {/* /search Bar */}
+          <div class="row ">
+              <div class="col-sm-6 text-right selectGenreSearch ">
+            
+              <select placeholder="select city name"
+                        required
+                        defaultValue={genre}
+                           onChange={(e)=>{setGenre(e.target.value  )}}
+                        className="form-control modalforminput mt-3">
+                          <option value="Action">Action</option>
+                          <option value="Comedy">Comedy</option>
+                          <option value="Thriller">Thriller</option>
+                          <option value="Advanture">Advanture</option>
+                          <option value="Fantacy">Fantacy</option>
+                          <option value="Horror">Horror</option>
+                          <option value="Crime">Crime</option>
+                          <option value="ScienceFiction">Science Fiction</option>
+                        </select>
+              </div>
+              <div class="col-sm-6 ">
+                  <button type="button"onClick={()=>{searchCinemaAndMoviesByGenre() }}  class="btn btn-warning ml-3 selectGenreSearchbutton">Search</button>
+
+                     <button type="button"onClick={()=>{setsearchGenereMovies(null)}}  class="btn btn-warning ml-3 selectGenreSearchbutton">Clear</button>
+              </div>
+          </div>
+      </div>
           <main className="hoc container clear">
+        
+                
 
+           {(searchGenereMovies !== null)?(<>
+           {(searchGenereMovies?.length >0)?(<>
             <div className="center btmspace-50">
-              <h2 className="heading text-white" >Cinemas </h2>
-
+              <h2 className="heading text-white" >Movies by Genre Search </h2>
             </div>
             <ul className="nospace group btmspace-50">
-              {cinemas.map((cinema, index) => (<CinemaListCard key={cinema.id} cinema={cinema} first={(index%3 === 0)?true:false} />))}
+              {searchGenereMovies.map((item, index) => (<SearchByGenreList  key={item._id} item={item} first={(index%3 === 0)?true:false} />))}
             </ul>
+
+           </>):(<>
+           <p className="text-center">
+             No movie available on cinema for searched genere
+           </p>
+           </>)
+
+           }
+           </>):(<>
+            <div className="center btmspace-50">
+              <h2 className="heading text-white" >Cinemas </h2>
+            </div>
+            {(cinema.length >0)?(<>
+              <ul className="nospace group btmspace-50">
+              {cinema.map((cinema, index) => (<CinemaListCard  DeleteCinemaHandler={DeleteCinemaHandler}key={cinema.id} cinema={cinema} first={(index%3 === 0)?true:false} />))}
+            </ul>
+            </>):(<>
+              <p className="text-center WarningOutlined">
+              <WarningOutlined  style={{ color: 'hotpink' }}  color="#eb2f96" twoToneColor="#eb2f96" />
+                </p>
+              <p className="text-center">
+           
+             No Cinema Record added yet
+           </p>
+            </>)
+
+            }
+            
+           </>)
+
+           }
+            {/* <div className="center btmspace-50">
+              <h2 className="heading text-white" >Cinemas </h2>
+            </div>
+            <ul className="nospace group btmspace-50">
+              {cinema.map((cinema, index) => (<CinemaListCard  DeleteCinemaHandler={DeleteCinemaHandler}key={cinema.id} cinema={cinema} first={(index%3 === 0)?true:false} />))}
+            </ul> */}
             {/* <p className="center nospace"><a className="btn" href="/cinemas">view more{">>"}</a></p> */}
             <div className="clear"></div>
           </main>
         </div>
+              {/* cinema Add model */}
+              <Modal
+          visible={modal}
+          title="Add New Cinema"
+          onCancel={()=>setModal(false)}
+          footer={[
+        
+            <button type="button" onClick={AddCinemaHandler} class="btn btn-warning formbutton bgRedBtn">Add new cinema</button>,
+            <button type="button" onClick={()=>setModal(false)} class="btn btn-warning ml-3 formbutton bgRedBtn">Cancel</button>
+          
+          ]}
+        >
+         <>
+          
+         <div className="form-group first">
+                      
+                        
+                            <div>
+                              <input
+                               required
+                               value={cinemaName}
+                              onChange={(e)=>{setCinemaName(e.target.value  )}}
+                              type="text"  
+                                className="form-control modalforminput"
+                                placeholder="Cinema Name" />
+
+                            </div>
+                            
+                            <div>
+                              <input
+                               required
+                               value={cinemaPhoneNumber}
+                              onChange={(e)=>{setcinemaPhoneNumber(e.target.value  )}}
+                                type="text" 
+                                className="form-control modalforminput mt-3"
+                                placeholder="Phone Number" />
+
+                            </div>
+
+                           
+                        <select placeholder="select city name"
+                        required
+                        defaultValue={'Islamabad'}
+                           onChange={(e)=>{setcinemacinemaCity(e.target.value  )}}
+                        className="form-control modalforminput mt-3">
+                          <option value="Islamabad">Islamabad</option>
+                          <option value="Rawalpindi">Rawalpindi</option>
+                        </select>
+
+                         
+                        <div>
+                              <textarea
+                               required
+                                  value={cinemaAddress}
+                              onChange={(e)=>{setcinemaAddress(e.target.value  )}}
+                                type="text" 
+                                className="form-control modalforminput mt-3"
+                                placeholder="Address Of Cinema" />
+
+                            </div>
+
+                        <div>
+                        <p className="uploadmessage">
+                          {image?(
+                            <>
+                          {image?.name} file  uploaded sucessfully
+                          </>
+                          ):('')
+
+                          }
+                           </p>
+                        <div class="file btn btn-lg btn-primary bgRedBtn">
+                         
+                         Click Upload cinema image 
+                        
+                          <input 
+                          onChange={(event)=>{
+                            setimage(event.target.files[0])
+                            console.log(event.target.files[0])}}
+                          class="fileinput bgRedBtn" type="file" name="file"/>
+                        </div>
+
+                            </div>
+
+                    
+                            
+                       
+                     
+                      </div>
+                    
+         </>
+        </Modal>
+
       </>
     );
   }
