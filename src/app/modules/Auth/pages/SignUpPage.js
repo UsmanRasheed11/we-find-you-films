@@ -48,7 +48,7 @@ const SignUpPage = (props) => {
                     LastName: "",
                     Email: "",
                     Password: "",
-                    Genere: "",
+                    Genre: "",
                     Age: '',
                   }}
                   validate={values => {
@@ -73,8 +73,8 @@ const SignUpPage = (props) => {
                     if (!values.Password) {
                       errors.Password = "Required Fields";
                     }
-                    if (values.Genere.length < 3) {
-                      errors.Genere = "Required Fields";
+                    if (values.Genre.length < 3) {
+                      errors.Genre = "Required Fields";
                     }
                     if (values.Age <= 1) {
                       errors.Age = "Required Fields ";
@@ -90,7 +90,7 @@ const SignUpPage = (props) => {
                       values.FirstName,
                       values.LastName,
                       values.Password,
-                      values.Genere,
+                      values.Genre,
                       values.Age
                     )
                       .then(({ data: { accessToken } }) => {
@@ -186,9 +186,9 @@ const SignUpPage = (props) => {
                           className="form-control my-3"
                           getOptionLabel={(option) => option}
                           limitTags={2}
-                          getOptionDisabled={() => (values.Genere.length > 2 ? true : false)}
+                          getOptionDisabled={() => (values.Genre.length > 2 ? true : false)}
                           filterSelectedOptions
-                          onChange={(e, value) => setFieldValue("Genere", value)}
+                          onChange={(e, value) => setFieldValue("Genre", value)}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -196,8 +196,8 @@ const SignUpPage = (props) => {
                             />
                           )}
                         />
-                        {touched.Genere &&
-                          errors.Genere && <div className="text-white">{errors.Genere}</div>}
+                        {touched.Genre &&
+                          errors.Genre && <div className="text-white">{errors.Genre}</div>}
                       </div>
                       <div className="form-group last mb-3">
                         <Field type="string" name="Age" component={Input} label="Age">
