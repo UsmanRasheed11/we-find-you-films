@@ -1,34 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import axios from "axios";
-const cheerio = require('cheerio');
+import {Scraping} from '../../../Api/Api'
 function MovieViewComponent(props) {
-  
+  const [TrailerURL, SetTrailerURL] = useState(null);
 
 
 
   useEffect(()=>{
-    console.log("trailer url",props.trailer)
-    const headers = {
-      
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
-    };
-    fetch(props.trailer || 'https://www.imdb.com/video/imdb/vi3877612057/imdb/embed?format=SD&token=dStrTlB5NkkwUDoxNjUwNzM0NDAyNDA0&ref_=vi_res_stn',
-    {crossdomain: true,headers,
-      method: 'GET',
-      mode: 'no-cors',
-      withCredentials: true,
-      credentials: 'same-origin',
-    }).then((res)=>{
-      const $ = cheerio.load(res.data)
-      console.log('res',res)
-      console.log('$',$)
-
-    }).catch((error)=>{
-      console.log('error',error)
-    })
+    movieUrlHandler()
+   
   },[])
+
+  const movieUrlHandler = async()=>{
+    console.log("trailer url",props.trailer)
+    // const url = 'https://www.imdb.com/video/imdb/vi2333017881/imdb/embed'
+    const responce = await Scraping.ScrapingHandler({url:props.trailer})
+    console.log("responce",responce.data)
+    if(responce.data.success){
+      console.log(responce.data.url[1].videoUrl)
+      SetTrailerURL(responce.data.url[1].videoUrl)
+    }
+
+  }
   //main View
   return (
     <>
@@ -43,7 +36,7 @@ function MovieViewComponent(props) {
           </div>
           <video width="100%" controls>
             <source
-              src={"https://media.w3.org/2010/05/sintel/trailer.mp4"}
+              src={TrailerURL|| "https://media.w3.org/2010/05/sintel/trailer.mp4"}
               // type="video/mp4"
             />
             Your browser does not support the video tag.

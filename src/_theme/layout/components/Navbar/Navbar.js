@@ -67,9 +67,13 @@ export const NavbarPage = () => {
         {isAuthorized?<Nav.Link className="NavBar text-white" href="/wishlist">WatchList</Nav.Link>:<></>}
         <Nav.Link className="NavBar text-white" href="/cinemas">Watch in Cinema</Nav.Link>
         {!isAuthorized?<><Nav.Link className="NavBar text-success" href="/auth/login">Login</Nav.Link>
-        <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link></>:<NavDropdown className="NavBar text-white" style={{color:'white',marginTop:'-5px'}} title={ <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{user.FirstName[0]}</Avatar>} id="navbarScrollingDropdown">
+        <Nav.Link className="NavBar text-white" href="/auth/Register">Register</Nav.Link></>:<NavDropdown className="NavBar text-white" style={{color:'white',marginTop:'-5px'}}
+         title={ <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+           {'user'}</Avatar>}
+          //  {user?.FirstName[0] ? user?.FirstName[0] : ''}</Avatar>}
+            id="navbarScrollingDropdown">
         <NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={``}>Profile</NavDropdown.Item>
-        {(user.Role === "admin")?<NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/statistics`}>Statistics</NavDropdown.Item>:<></>}
+        {(user?.Role === "admin")?<NavDropdown.Item className="NavBar subnavbar text-white" style={{borderBottom:'1px solid white'}}  href={`/statistics`}>Statistics</NavDropdown.Item>:<></>}
                     <NavDropdown.Item className="NavBar subnavbar text-Danger logout" style={{borderBottom:'1px solid white'}}  href={`/logout`}>
                      
                         Logout</NavDropdown.Item>
