@@ -18,13 +18,16 @@ const SignUpPage = (props) => {
     setLoading(true);
   };
 
-  const openNotification = () => {
+  const openNotification = (res) => {
     notification.open({
-      message: 'SignUp Successfully',
-      description: "New Account has been Created Successfully",
+      message: res.message,
+      description: 
+      res.status ? "New Account has been Created Successfully" : "",
       onClick: () => {
         console.log('Notification Clicked!');
       },
+      className: res.status ? "bg-success" : "",
+      style: { backgroundColor: !res.status ? "#410000" : "" }
     });
   };
 
@@ -83,7 +86,6 @@ const SignUpPage = (props) => {
                     return errors;
                   }}
                   onSubmit={(values, { setStatus, setSubmitting }) => {
-                    console.log(values)
                     enableLoading();
                     register(
                       values.Email,
@@ -94,12 +96,13 @@ const SignUpPage = (props) => {
                       values.Age
                     )
                       .then(({ data }) => {
-                        openNotification();
+                        openNotification({ status: true, message: "SignUp Successfully" })
                         console.log(data)
                         props.register(data.token);
                         disableLoading();
                       })
-                      .catch(() => {
+                      .catch((err) => {
+                        openNotification({ status: false, message: err.response.data.message, })
                         setSubmitting(false);
                         setStatus(
                           "Required Fields"

@@ -3,6 +3,9 @@ import { Formik, Field } from "formik";
 import { notification } from "antd";
 import axios from "axios";
 import { Input } from "../../../../_theme/_partials/controls"
+import "../../../../_theme/css/style.css";
+import "../../../../_theme/css/bootstrap.min.css";
+import "../../../../_theme/fonts/icomoon/style.css";
 import Autocomplete from '@mui/material/Autocomplete';
 import { TextField } from "@material-ui/core";
 
@@ -95,27 +98,6 @@ const ProfilePage = () => {
                     });
                     console.log(err.response);
                   });
-                // register(
-                //   values.Email,
-                //   values.FirstName,
-                //   values.LastName,
-                //   values.Password,
-                //   values.Genre,
-                //   values.Age
-                // )
-                //   .then(({ data }) => {
-                //     openNotification();
-                //     console.log(data)
-                //     props.register(data.token);
-                //     disableLoading();
-                //   })
-                //   .catch(() => {
-                //     setSubmitting(false);
-                //     setStatus(
-                //       "Required Fields"
-                //     );
-                //     disableLoading();
-                //   });
               }}
             >
               {({

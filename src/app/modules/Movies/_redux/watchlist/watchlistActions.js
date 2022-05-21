@@ -27,7 +27,7 @@ export const deleteMovieFromWatchList = movie => async dispatch => {
   } catch (error) {
     error.clientMessage = "Can't delete movie from watchlist";
     dispatch(actions.catchError({ error, callType: callTypes.action }));
-    return { message: error.clientMessage || error, status: "error" }
+    return { message: error?.response.data.message || error.clientMessage || error, status: "error" }
   }
 };
 
@@ -45,6 +45,6 @@ export const addMovieToWatchList = movieforAdd => async dispatch => {
   } catch (error) {
     error.clientMessage = "Can't add movie to watchlist";
     dispatch(actions.catchError({ error, callType: callTypes.action }));
-    return { message: error.clientMessage || error, status: "error" }
+    return { message: error?.response.data.message || error.clientMessage || error, status: "error" }
   }
 };

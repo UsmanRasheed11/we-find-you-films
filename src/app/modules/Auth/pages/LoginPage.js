@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
+import { notification } from "antd";
 import {connect} from "react-redux";
 import "../../../../_theme/css/style.css";
 import "../../../../_theme/css/bootstrap.min.css";
@@ -14,6 +15,18 @@ const LoginPage = (props) => {
 
   const enableLoading = () => {
     setLoading(true);
+  };
+  const openNotification = (res) => {
+    notification.open({
+      message: res.message,
+      description: 
+      res.status ? "New Account has been Created Successfully" : "",
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+      className: res.status ? "bg-success" : "",
+      style: { backgroundColor: !res.status ? "#410000" : "" }
+    });
   };
 
   const disableLoading = () => {
@@ -58,12 +71,13 @@ const LoginPage = (props) => {
                     setTimeout(() => {
                       login(values.Email, values.Password)
                         .then(({ data }) => {
-                          console.log(data)
+                          // openNotification({ status: true, message: "Login Successfully" })
                           disableLoading();
                           props.login(data.token);
 
                         })
-                        .catch(() => {
+                        .catch((err) => {
+                          openNotification({ status: false, message: err.response.data.message, })
                           disableLoading();
                           setSubmitting(false);
                           setStatus(

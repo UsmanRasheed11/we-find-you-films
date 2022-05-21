@@ -73,6 +73,7 @@ export const NavbarPage = () => {
                   //  {user?.FirstName[0] ? user?.FirstName[0] : ''}</Avatar>}
                   id="navbarScrollingDropdown">
                 <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href="/profile" >Profile</NavDropdown.Item>
+                <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href="/change-password" >Change Password</NavDropdown.Item>
                 {(user?.Role === "admin") ? <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href={`/statistics`}>Statistics</NavDropdown.Item> : <></>}
                 <NavDropdown.Item className="NavBar subnavbar text-Danger logout" style={{ borderBottom: '1px solid white' }} href={`/logout`}>
 

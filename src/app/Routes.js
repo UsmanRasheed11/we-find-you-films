@@ -20,6 +20,7 @@ import { WatchListPage } from "./modules/Movies/pages/WatchlistPage";
 import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
 import { CinemaDetailsPage } from "./modules/Cinema/pages/CinemaDetailsPage";
 import ProfilePage from "./modules/Auth/pages/ProfilePage";
+import ChangePasswordPage from "./modules/Auth/pages/ChangePasswordPage";
 
 export function MyRoutes() {
   const { isAuthorized } = useSelector(
@@ -47,6 +48,7 @@ export function MyRoutes() {
       <Route path="/logout" element={<Logout />} />
       <Route exact path="/*" element={<BasePage />}>
         <Route exact path="profile" element={<ProfilePage />} />
+        <Route exact path="change-password" element={<ChangePasswordPage />} />
         <Route exact path="" element={<LandingPage />} />
         <Route exact path="" element={<LandingPage />} />
         <Route path="movies/:id" element={<MoviesViewPage />} />
