@@ -19,41 +19,43 @@ import { MovieDetailsPage } from "./modules/Movies/pages/MovieDetailsPage";
 import { WatchListPage } from "./modules/Movies/pages/WatchlistPage";
 import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
 import { CinemaDetailsPage } from "./modules/Cinema/pages/CinemaDetailsPage";
+import ProfilePage from "./modules/Auth/pages/ProfilePage";
 
 export function MyRoutes() {
-    const { isAuthorized } = useSelector(
-        ({ auth }) => ({
-            isAuthorized: auth.user != null,
-        }),
-        shallowEqual
-    );
+  const { isAuthorized } = useSelector(
+    ({ auth }) => ({
+      isAuthorized: auth.user != null,
+    }),
+    shallowEqual
+  );
 
-    return (
-        <Routes>
-            {!isAuthorized ? (
-                <>
-                    <Route exact path="/auth/*" element={<AuthPage />}>
-                        <Route path="login" element={<LoginPage />} />
-                        <Route path="register" element={<SignUpPage />} />
+  return (
+    <Routes>
+      {!isAuthorized ? (
+        <>
+          <Route exact path="/auth/*" element={<AuthPage />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<SignUpPage />} />
 
-                    </Route>
-                    <Route path="/auth" element={<Navigate from="/auth" to="/auth/login" />} />
-                </>
-            ) : (
-                /*Otherwise redirect to root page (`/`)*/
-                <Route path="/auth/*" element={<Navigate to="/" />} />
-            )}
-            <Route path="/logout" element={<Logout />} />
-            <Route exact path="/*" element={<BasePage />}>
-                <Route exact path="" element={<LandingPage />} />
-                <Route exact path="" element={<LandingPage />} />
-                <Route path="movies/:id" element={<MoviesViewPage />} />
-                <Route path="TopMoviesMainPage" element={<TopMoviesMainPage />} />
-                {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
-                <Route exact path="watchlist" element={<WatchListPage />} />
-                <Route exact path="cinemas" element={<CinemaPage />} />
-                <Route exact path="cinemas/:id" element={<CinemaDetailsPage />} />
-            </Route>
-        </Routes>
-    );
+          </Route>
+          <Route path="/auth" element={<Navigate from="/auth" to="/auth/login" />} />
+        </>
+      ) : (
+        /*Otherwise redirect to root page (`/`)*/
+        <Route path="/auth/*" element={<Navigate to="/" />} />
+      )}
+      <Route path="/logout" element={<Logout />} />
+      <Route exact path="/*" element={<BasePage />}>
+        <Route exact path="profile" element={<ProfilePage />} />
+        <Route exact path="" element={<LandingPage />} />
+        <Route exact path="" element={<LandingPage />} />
+        <Route path="movies/:id" element={<MoviesViewPage />} />
+        <Route path="TopMoviesMainPage" element={<TopMoviesMainPage />} />
+        {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
+        <Route exact path="watchlist" element={<WatchListPage />} />
+        <Route exact path="cinemas" element={<CinemaPage />} />
+        <Route exact path="cinemas/:id" element={<CinemaDetailsPage />} />
+      </Route>
+    </Routes>
+  );
 }
