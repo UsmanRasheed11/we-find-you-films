@@ -3,6 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../_redux/watchlist/watchlistActions";
 import { notification } from "antd";
 import "../../../../_theme/layout/styles/layout.css";
+import { useNavigate } from "react-router";
 
 const movies = [
   {
@@ -27,21 +28,21 @@ const movies = [
     time: "Apr,04",
   },
 ];
+const openNotification = (res, movie) => {
+  notification.open({
+    message: res.message,
+    description:
+      res.status ? `movie "${movie?.title || ""}" deleted from watchlist` : "",
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+    className: res.status ? "bg-success" : "",
+    style: { backgroundColor: !res.status ? "#410000" : "" }
+  });
+};
 
 const WatchListMovieCard = ({ movie }) => {
   const dispatch = useDispatch();
-  const openNotification = (res) => {
-    notification.open({
-      message: res.message,
-      description:
-        res.status ? `movie ${movie?.title || ""} deleted from watchlist` : "",
-      onClick: () => {
-        console.log('Notification Clicked!');
-      },
-      className: res.status ? "bg-success" : "",
-      style: { backgroundColor: !res.status ? "#410000" : "" }
-    });
-  };
   return (
     <div className="product">
 
@@ -57,7 +58,7 @@ const WatchListMovieCard = ({ movie }) => {
 
       </div>
       <div className="product-info">
-        <p className="product-remove" onClick={() => dispatch(actions.deleteMovieFromWatchList(movie)).then(response => { openNotification(response); })}>
+        <p className="product-remove" onClick={() => dispatch(actions.deleteMovieFromWatchList(movie)).then(response => { openNotification(response, movie); })}>
 
           <i className="fa fa-trash" aria-hidden="true"></i>
 
@@ -71,15 +72,20 @@ const WatchListMovieCard = ({ movie }) => {
 }
 
 export const WatchListPage = () => {
-  const { currentState } = useSelector(
-    (state) => ({ currentState: state.watchList }),
+  const { currentState, isAuthorized } = useSelector(
+    (state) => ({ currentState: state.watchList, isAuthorized: state.auth.user != null, }),
     shallowEqual
   );
+  const navigate = useNavigate();
   const { totalCount, entities, listLoading } = currentState;
   console.log(entities);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actions.getWatchList());
+    if (!isAuthorized) {
+      openNotification({ message: "Please login first!", status: false })
+      navigate("/auth")
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   return (
@@ -92,7 +98,8 @@ export const WatchListPage = () => {
           <header className="heading"><u>Watchlist</u></header><br /><br />
 
           <div className="products">
-            {entities?.length < 1 ? <p className="text-center">No Record Found</p> : entities?.map(movie => (<WatchListMovieCard key={movie._id} movie={movie} />))}
+            {listLoading ? <div className="d-flex align-items-center justify-content-center"><div className="spinner-border text-light" role="status"></div></div> :
+              entities?.length < 1 ? <p className="text-center">No Record Found</p> : entities?.map(movie => (<WatchListMovieCard key={movie._id} movie={movie} />))}
           </div>
 
         </main>
