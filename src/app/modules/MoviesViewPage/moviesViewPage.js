@@ -49,22 +49,23 @@ function MoviesViewPage(props) {
     notification.open({
       message: res.message,
       description:
-      res.status?`${movieData?.fullTitle || ""} movie added to wishlist`:"",
+        res.status ? `${movieData?.fullTitle || ""} movie added to watchlist` : "",
       onClick: () => {
         console.log('Notification Clicked!');
       },
-      className: res.status?"bg-success":"",
-      style: {backgroundColor: !res.status? "#410000":""}
+      className: res.status ? "bg-success" : "",
+      style: { backgroundColor: !res.status ? "#410000" : "" }
     });
   };
 
   const addtoWatchList = () => {
-    dispatch(actions.addMovieToWatchList({ movieId: movieId||params?.id, image: movieData?.image||"https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg",
-    title: movieData?.fullTitle||"Demo Title", description: movieData?.plot||"Demo Description" }))
-    .then(response => {
-      console.log(response)
-      openNotification(response);
-    })
+    dispatch(actions.addMovieToWatchList({
+      movieId: movieId || params?.id, image: movieData?.image || "https://image.tmdb.org/t/p/w500/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg",
+      title: movieData?.fullTitle || "Demo Title", description: movieData?.plot || "Demo Description"
+    }))
+      .then(response => {
+        openNotification(response);
+      })
   }
 
   return (

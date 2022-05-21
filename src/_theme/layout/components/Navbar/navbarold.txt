@@ -46,7 +46,7 @@ export const NavbarPage = () => {
       
                   </NavDropdown>
                 </li>
-                <li className="mx-3"><NavLink to="/wishlist">Watchlist</NavLink></li>
+                <li className="mx-3"><NavLink to="/watchlist">Watchlist</NavLink></li>
                 <li className="mx-3"><NavLink to="/cinemas">Watch in Cinema</NavLink></li>
                 <li className="mx-3"><NavLink to="/auth/login">Login</NavLink></li>
                 <li className="mx-3"><NavLink to="/auth/register">Register</NavLink></li>

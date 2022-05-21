@@ -50,7 +50,7 @@ export function MyRoutes() {
                 <Route path="movies/:id" element={<MoviesViewPage />} />
                 <Route path="TopMoviesMainPage" element={<TopMoviesMainPage />} />
                 {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
-                <Route exact path="wishlist" element={<WatchListPage />} />
+                <Route exact path="watchlist" element={<WatchListPage />} />
                 <Route exact path="cinemas" element={<CinemaPage />} />
                 <Route exact path="cinemas/:id" element={<CinemaDetailsPage />} />
             </Route>

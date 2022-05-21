@@ -13,6 +13,6 @@ export function getWatchList() {
 }
 
 // DELETE => delete the movie from the watchlist
-export function deleteMovieFromWatchList(movie) {
-  return axios.delete(`${WATCHLIST_URL}/delete`, { movie });
+export function deleteMovieFromWatchList(data) {
+  return axios.delete(`${WATCHLIST_URL}/delete`, { data });
 }

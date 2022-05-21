@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../_redux/watchlist/watchlistActions";
+import { notification } from "antd";
 import "../../../../_theme/layout/styles/layout.css";
 
 const movies = [
@@ -28,10 +29,23 @@ const movies = [
 ];
 
 const WatchListMovieCard = ({ movie }) => {
+  const dispatch = useDispatch();
+  const openNotification = (res) => {
+    notification.open({
+      message: res.message,
+      description:
+        res.status ? `movie ${movie?.title || ""} deleted from watchlist` : "",
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+      className: res.status ? "bg-success" : "",
+      style: { backgroundColor: !res.status ? "#410000" : "" }
+    });
+  };
   return (
     <div className="product">
 
-      <img src={movie.src} alt="" />
+      <img src={movie.image} alt="" />
 
       <div className="product-info col-6">
 
@@ -43,13 +57,13 @@ const WatchListMovieCard = ({ movie }) => {
 
       </div>
       <div className="product-info">
-      <p className="product-remove">
+        <p className="product-remove" onClick={() => dispatch(actions.deleteMovieFromWatchList(movie)).then(response => { openNotification(response); })}>
 
-        <i className="fa fa-trash" aria-hidden="true"></i>
+          <i className="fa fa-trash" aria-hidden="true"></i>
 
-        <span className="remove mx-1">Remove</span>
+          <span className="remove mx-1">Remove</span>
 
-      </p>
+        </p>
       </div>
 
     </div>
@@ -78,7 +92,7 @@ export const WatchListPage = () => {
           <header className="heading"><u>Watchlist</u></header><br /><br />
 
           <div className="products">
-            {movies.map(movie => (<WatchListMovieCard key={movie.id} movie={movie} />))}
+            {entities?.length < 1 ? <p className="text-center">No Record Found</p> : entities?.map(movie => (<WatchListMovieCard key={movie._id} movie={movie} />))}
           </div>
 
         </main>
