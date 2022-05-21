@@ -5,6 +5,8 @@ import { Modal, Button,message } from 'antd';
 import { WarningOutlined } from '@ant-design/icons';
 import {Cinema} from "../../../../Api/Api";
 import { Divider } from 'antd';
+import { useSelector, shallowEqual } from "react-redux";
+
 const cinemas = [
   {
     id: 1,
@@ -45,18 +47,28 @@ const cinemas = [
 ]
 
 const CinemaListCard = ({ cinema, first,DeleteCinemaHandler }) => {
+  const {isAuthorized, user} = useSelector(
+    ({auth}) => ({
+        isAuthorized: auth.user != null,
+        user: auth.user,
+    }),
+    shallowEqual
+    );
   console.log(first)
   return (
       <li className={`one_third my-1 ${first?"first":""}`}>
         <article className="element">
           <figure><img src={cinema.Image} alt={cinema.Name} style={{width:'288px',height:'180'}} />
+          {(user?.Role === "admin")?(<>
             <figcaption ><a style={{marginTop:'-130px'}} onClick={()=>DeleteCinemaHandler(cinema._id)} className="btn small bgRedBtn">Delete</a></figcaption>
+            
+          </>):(<></>)}
             <figcaption ><a className="btn small bgRedBtn" href={`/cinemas/${cinema._id}`}>View</a></figcaption>
           </figure>
-          <h6 className="cinemaname" ><a href={`/cinemas/${cinema.id}`}>{cinema.Name}</a></h6>
+          <h6 className="cinemaname" ><a style={{color:'white',fontSize:'20px'}} href={`/cinemas/${cinema.id}`}>{cinema.Name}</a></h6>
           <p >{cinema.City}</p>
-          <p style={{marginTop:'-10px'}}>{cinema.PhoneNumber}</p>
-          <p style={{marginTop:'-10px'}} > {cinema.Address}</p>
+          <p >{cinema.PhoneNumber}</p>
+          <p  > {cinema.Address}</p>
 
         </article>
       </li>
@@ -96,6 +108,13 @@ const CinemaSearchResultPage = ({ cinemas }) => {
   const [searchGenereMovies, setsearchGenereMovies] =useState(null)
   const [genre, setGenre] =useState('Action')
 
+  const {isAuthorized, user} = useSelector(
+    ({auth}) => ({
+        isAuthorized: auth.user != null,
+        user: auth.user,
+    }),
+    shallowEqual
+    );
   useEffect(() => {
     fetchData()
     // searchCinemaAndMoviesByGenre()
@@ -175,18 +194,22 @@ const CinemaSearchResultPage = ({ cinemas }) => {
 
         <div className="wrapper row3" id='cinemaMain'>
             {/* add cinema button */}
+           
             <div class="container">
-          <div class="row">
-              <div class="col-md-12  text-right">
+            {(user?.Role === "admin")?(<>
+              <div class="row">
+              <div class="col-md-12   text-right">
                   <button type="button"onClick={()=>{
                     setimage(null);setcinemaAddress('');setCinemaName('')
                   setcinemaPhoneNumber('');setModal(true);
                     }}  class="btn btn-warning bgRedBtn">Add New Cinema</button>
               </div>
           </div>
+            </>):(<></>)}
+         
           {/* /search Bar */}
-          <div class="row ">
-              <div class="col-sm-6 text-right selectGenreSearch ">
+          <div class="row " style={{marginBottom:'-100px'}}>
+              <div class="col-sm-9 text-right selectGenreSearch ">
             
               <select placeholder="select city name"
                         required
@@ -203,13 +226,13 @@ const CinemaSearchResultPage = ({ cinemas }) => {
                           <option value="ScienceFiction">Science Fiction</option>
                         </select>
               </div>
-              <div class="col-sm-6 ">
+              <div class="col-xs-3  text-left ">
                   <button type="button"onClick={()=>{searchCinemaAndMoviesByGenre() }}  class="btn btn-warning ml-3 selectGenreSearchbutton">Search</button>
 
                      <button type="button"onClick={()=>{setsearchGenereMovies(null)}}  class="btn btn-warning ml-3 selectGenreSearchbutton">Clear</button>
               </div>
           </div>
-      </div>
+             </div>
           <main className="hoc container clear">
         
                 

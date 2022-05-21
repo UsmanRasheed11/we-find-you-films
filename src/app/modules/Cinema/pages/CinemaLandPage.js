@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink,Link } from "react-router-dom";
+
 
 export const CinemaLandPage = () => {
 
@@ -7,10 +9,11 @@ export const CinemaLandPage = () => {
   <div className="hoc container clear"> 
     <article className="center">
       <h2 className="font-x3 uppercase">Watch movie in cenima???</h2>
-      <p className="btmspace-50 font-x2 capitalise">find cinema near you by selecting your region  </p>
+      <p className="btmspace-50 font-x2 capitalise">find cinema near you by selecting Genre of movie  </p>
       <footer>
         <ul className="nospace inline pushright">
-          <li><a className="btn inverse" href="/">find cinemas</a></li>
+          {/* <li><a className="btn inverse" href="/">find cinemas</a></li> */}
+          <li>< Link className=" btn  text-white" to="/cinemas">find cinemas</Link></li>
           
         </ul>
       </footer>

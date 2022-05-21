@@ -186,7 +186,7 @@ const SignUpPage = (props) => {
                       <div className="form-group last mb-3">
                         <Autocomplete
                           multiple
-                          options={["Action", "Comedy", "Thriller", "Adventure", "Rommantic", "Fantacy", "Horror", "Crime", "Science Fiction"]}
+                          options={['action','adventure','biography','comedy','crime','documentary','fantasy','history','horror','mystery','romance','sci_fi','thriller']}
                           className="form-control my-3"
                           getOptionLabel={(option) => option}
                           limitTags={2}

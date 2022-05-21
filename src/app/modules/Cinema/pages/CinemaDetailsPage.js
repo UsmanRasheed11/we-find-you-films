@@ -4,6 +4,7 @@ import {Cinema} from "../../../../Api/Api";
 import { Modal, Button,message } from 'antd';
 import { useLocation } from "react-router";
 import { WarningOutlined } from '@ant-design/icons';
+import { useSelector, shallowEqual } from "react-redux";
 
 export const CinemaDetailsPage = () => {
   const [cinema, setcinema] =useState({})
@@ -18,16 +19,18 @@ export const CinemaDetailsPage = () => {
   const [image, setimage] =useState(null)
   const [movieId, setMovieId] =useState('')
  
+  const {isAuthorized, user} = useSelector(
+    ({auth}) => ({
+        isAuthorized: auth.user != null,
+        user: auth.user,
+    }),
+    shallowEqual
+    );
 
 
   useEffect(() => {
-  //   let url = window.location.pathname
-  //   url = url.substring(url.lastIndexOf('/') + 1);
-  //  console.log(url); //yields: "/js" (where snippets run)
    fetchData();
    fetchMovies();
-    
-     
   }, []);
 
 
@@ -116,6 +119,7 @@ export const CinemaDetailsPage = () => {
        >
        
         <div className="w3-row w3-padding-64" id="about">
+        {(user?.Role === "admin")?(<>
         <div class="cinemaDetailbuttonaddmovies  text-right">
                   <button type="button"onClick={()=>{
                      setimage(null);setDate('');setTime('')
@@ -123,8 +127,9 @@ export const CinemaDetailsPage = () => {
                   setModal(true);
                     }}  class="btn mr-5  mt-2 btn-warning bgRedBtn">Add New Movie</button>
               </div>
+              </>):(<></>)}
           <div className="w3-col m6 w3-padding-large">
-            <br /><br /><img src={cinema.Image || "/images/demo/cineplex.jpg"} className="w3-round w3-image w3-opacity-min cinemaimage" alt="Loading" width="600" height="750" />
+            <br /><br /><img src={cinema.Image || "/images/demo/cineplex.jpg"} className="w3-round w3-image w3-opacity-min cinemaimage" alt="Loading" width="600" height="500" />
           </div>
           <br /><br />
           <div className="w3-col m6 w3-padding-large">
@@ -149,8 +154,9 @@ export const CinemaDetailsPage = () => {
                   <>
                   <li className={(index%4 === 0) ?"one_quarter first mt-5":"one_quarter mt-5"}><div className="movie-list-item">
                   <img className="movie-list-item-img" src={mapData.Image} alt="" />
-    
+                  {(user?.Role === "admin")?(<>
                   <button  onClick={()=>{DeleteHandler(mapData._id)}} className="movie-list-item-button Deletebuttonmovie bgRedBtn">Delete </button>
+                  </>):(<></>)}
                   <button onClick={()=>{setmovieModal(true); setmovieDetails(mapData)}}className="movie-list-item-button bgRedBtn">view </button>
 
                   </div>
@@ -160,12 +166,13 @@ export const CinemaDetailsPage = () => {
                 )
               }))
             }
-            </>):(<div className="text-center nomovieRecord" style={{paddingBottom:'20px',marginBottom:'-20px',marginTop:'50px'}}>
-              <p className="text-center WarningOutlined nomovieRecord">
-              <WarningOutlined  style={{ color: 'hotpink' }}  color="#eb2f96" twoToneColor="#eb2f96" />
+            </>):(
+            <div className="text-center nomovieRecord" style={{paddingBottom:'20px',marginBottom:'-20px',marginTop:'20px'}}>
+              <p className="text-center  nomovieRecord">
+              <WarningOutlined  style={{ fontSize:'60px',paddingTop:'30px' }}  color="#eb2f96" twoToneColor="#eb2f96" />
               
                 </p>
-                <p className="text-center nomovieRecord">
+                <p className="text-center ">
            
            No movie Record added yet
          </p>

@@ -9,7 +9,7 @@ import { imdbApi } from "../../../../Api/Api";
 
 
 
-export const TopMoviesMainPage = (props) => {
+export const LatestMoviesPage = (props) => {
   console.log(props)
   const location = useLocation();
   const [totalPage, setTotalPage] = useState(0)
@@ -22,35 +22,19 @@ export const TopMoviesMainPage = (props) => {
 
   useEffect(() => {
     async function loadData() {
-      if (location.search) {
-        if (location.search.includes("search")) {
+     
           setLoading(true)
-          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}${location.search.replace("?search=", "?title=")}`)
+          const res = await axios.get(`https://imdb-api.com/en/API/ComingSoon/${imdbApi}`);
+          console.log('res',res)
           setLoading(false)
-          setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0);
+          setData(res?.data?.items|| [])
+          setTotalPage(res?.data?.items?.length || 0);
           setMinIndex(0);
-          setMaxIndex(pageSize)
+          setMaxIndex(pageSize|| 0)
         }
-        else {
-          setLoading(true)
-          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}/${location.search}`);
-          setLoading(false)
-          setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0);
-          setMinIndex(0);
-          setMaxIndex(pageSize)
-        }
-      }
-      else {
-        setData(DemoData.items)
-        setTotalPage(DemoData.items.length);
-        setMinIndex(0);
-        setMaxIndex(pageSize)
-      }
-    }
+      
     loadData();
-  }, [location.search, pageSize]);
+  }, [pageSize]);
 
 
   const handlePaginationChange = (page, size) => {

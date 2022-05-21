@@ -91,7 +91,7 @@
     color: rgb(0, 0, 0) !important;
   }
   .cinemaimage{
-      height: 650px !important;
+      height: auto !important;
       width: 600px !important;
   }
   .cinemaimagemodel{

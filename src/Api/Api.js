@@ -8,6 +8,7 @@ const axios = Axios.create({
     timeout: 10000,
 });
 
+export const imdbApi = 'k_sblaz5wr'
 
 export const Cinema = {
     //cinema
@@ -26,4 +27,8 @@ export const Cinema = {
 export const Scraping = {
     //cinema
     ScrapingHandler: async (data) => await axios.post("/scraping", data),
+};
+export const User = {
+    //cinema
+    SuggestedMovies: async (data) => await axios.post("/user/UserSuggestedMovies", data),
 };

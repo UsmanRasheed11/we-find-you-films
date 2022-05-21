@@ -5,7 +5,8 @@ import MoviesCard from "./MoviesCard";
 import { Pagination } from "antd";
 import "./TopMoviesMainPage.css";
 import { useLocation } from "react-router";
-
+import { useSelector, shallowEqual } from "react-redux";
+import { imdbApi } from "../../../Api/Api";
 
 
 export const RecommendedLandPage = (props) => {
@@ -16,49 +17,58 @@ export const RecommendedLandPage = (props) => {
   const [minIndex, setMinIndex] = useState(0)
   const [maxIndex, setMaxIndex] = useState(0)
   const [pageSize, setPageSize] = useState(12)
+  const [suggestMovieArray, setsuggestMovieArray] = useState([])
   const [Data, setData] = useState(0)
   const [loading, setLoading] = useState(false);
 
+  const {isAuthorized, user} = useSelector(
+    ({auth}) => ({
+        isAuthorized: auth.user != null,
+        user: auth.user,
+    }),
+    shallowEqual
+    );
+
   useEffect(() => {
-    async function loadData() {
-      if (location.search) {
-        if (location.search.includes("search")) {
-          setLoading(true)
-          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr${location.search.replace("?search=", "?title=")}`)
-          setLoading(false)
-          setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0);
-          setMinIndex(0);
-          setMaxIndex(pageSize)
-        }
-        else {
-          setLoading(true)
-          const res = await axios.get(`https://imdb-api.com/API/AdvancedSearch/k_sblaz5wr/${location.search}`);
-          setLoading(false)
-          setData(res.data.results)
-          setTotalPage(res.data.results?.length || 0);
-          setMinIndex(0);
-          setMaxIndex(pageSize)
-        }
-      }
-      else {
-        setData(DemoData.items)
-        setTotalPage(DemoData.items.length);
-        setMinIndex(0);
-        setMaxIndex(pageSize)
-      }
-    }
-    loadData();
-  }, [location.search, pageSize]);
+   
+    console.log("user",user)
+    handlesuggestMovies()
+  
+  }, []);
 
-
-  const handlePaginationChange = (page, size) => {
-    setPageSize(size)
-    setCurrent(page);
-    setMinIndex((page - 1) * size);
-    setMaxIndex(page * size)
+ 
+  const handlesuggestMovies = async() => {
+    const suggestMovies = await SuggestionHandler()
   };
-  if ((!Data?.length || Data?.length < 1) && !loading) {
+
+  const SuggestionHandler =async (genre1,genre2,genre3) => {
+    try {
+      console.log('SuggestionHandler hit,',genre1,genre2,genre3)
+      let suggestion=[]
+      const suggestion1 = await axios(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}?genres=${user.Gener1}`)
+      console.log("suggestion1",suggestion1?.data.results[0])
+      if(suggestion1?.data?.results){
+        suggestion.push({Genre:user.Gener2,Movie:suggestion1?.data?.results[0]})
+      }
+      const suggestion2 = await axios(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}?genres=${user.Gener2}`)
+      console.log("suggestion2",suggestion2)
+      if(suggestion2?.data?.results){
+        suggestion.push({Genre:user.Gener2,Movie:suggestion2?.data?.results[0]})
+      }
+      const suggestion3 = await axios(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}?genres=${user.Gener3}`)
+      console.log("suggestion3",suggestion3)
+      if(suggestion3?.data?.results){
+        suggestion.push({Genre:user.Gener3,Movie:suggestion3?.data?.results[0]})
+      }
+         console.log("suggestion ===>",suggestion)
+         setsuggestMovieArray(suggestion)
+
+    } catch (error) {
+      console.log("error in suggestion handler :",error.message)
+    }
+    }
+
+  if ((!suggestMovieArray?.length || suggestMovieArray?.length < 1) && !loading) {
     return <h1 className="mt-5 text-white">No Result Found!</h1>
   }
   else {
@@ -71,10 +81,13 @@ export const RecommendedLandPage = (props) => {
             <>
               <div className="container-fluid mt-1 p-5">
                 <div id="movie-content" className="row d-flex justify-content-center">
-                  {Data && Data.map((movie, index) => {
-                   return (<MoviesCard key={movie.id} movies={movie} />)
-                  
-                  
+                  {suggestMovieArray && suggestMovieArray.map((item, index) => {
+                    console.log("mapItem",item)
+                    if(item.Movie)
+                   return (<>
+                     <p className="text-center">{item.Genre}</p>
+                  <MoviesCard key={item.Movie.id || ''} movies={item.Movie} />
+                   </> )
                   })}
                 </div>
               </div>

@@ -42,9 +42,9 @@ function MoviesCard(props) {
               </h3>
             </div>
             {/* *********  description of card ******* */}
-            <p className="text-left" style={{ marginTop: "-20px" }}>
+            {/* <p className="text-left" style={{ marginTop: "-20px" }}>
               {props.movies.crew || "demo crew"}
-            </p>
+            </p> */}
           </div>
         </div>
       </Link>

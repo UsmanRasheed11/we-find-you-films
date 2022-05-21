@@ -15,6 +15,7 @@ import LoginPage from "./modules/Auth/pages/LoginPage";
 import SignUpPage from "./modules/Auth/pages/SignUpPage";
 import MoviesViewPage from "./modules/MoviesViewPage/moviesViewPage";
 import { TopMoviesMainPage } from "./modules/TopMovies/pages/TopMoviesMainPage";
+import { LatestMoviesPage } from "./modules/TopMovies/pages/latestMovies";
 import { MovieDetailsPage } from "./modules/Movies/pages/MovieDetailsPage";
 import { WatchListPage } from "./modules/Movies/pages/WatchlistPage";
 import { CinemaPage } from "./modules/Cinema/pages/CinemaPage";
@@ -53,6 +54,7 @@ export function MyRoutes() {
         <Route exact path="" element={<LandingPage />} />
         <Route path="movies/:id" element={<MoviesViewPage />} />
         <Route path="TopMoviesMainPage" element={<TopMoviesMainPage />} />
+        <Route path="latestmovies" element={<LatestMoviesPage />} />
         {/* <Route exact path="movies/:id" element={<MovieDetailsPage />}/> */}
         <Route exact path="watchlist" element={<WatchListPage />} />
         <Route exact path="cinemas" element={<CinemaPage />} />
