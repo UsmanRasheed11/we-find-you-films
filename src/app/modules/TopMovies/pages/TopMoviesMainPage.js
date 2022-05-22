@@ -43,6 +43,7 @@ export const TopMoviesMainPage = (props) => {
         }
       }
       else {
+        setLoading(true)
         const res = await axios.get(`https://imdb-api.com/en/API/Top250Movies/${imdbApi}`)
         console.log("getmovies result",res)
           setLoading(false)
