@@ -43,10 +43,17 @@ export const TopMoviesMainPage = (props) => {
         }
       }
       else {
-        setData(DemoData.items)
-        setTotalPage(DemoData.items.length);
-        setMinIndex(0);
-        setMaxIndex(pageSize)
+        const res = await axios.get(`https://imdb-api.com/en/API/Top250Movies/${imdbApi}`)
+        console.log("getmovies result",res)
+          setLoading(false)
+          setData(res.data.items)
+          setTotalPage(res.data.items?.length || 0);
+          setMinIndex(0);
+          setMaxIndex(pageSize)
+        // setData(DemoData.items)
+        // setTotalPage(DemoData.items.length);
+        // setMinIndex(0);
+        // setMaxIndex(pageSize)
       }
     }
     loadData();

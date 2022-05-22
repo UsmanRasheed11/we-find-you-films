@@ -1,20 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import {Scraping} from '../../../Api/Api'
+import axios from "axios";
+import { imdbApi } from "../../../Api/Api";
+
+
 function MovieViewComponent(props) {
   const [TrailerURL, SetTrailerURL] = useState(null);
+  const [movieData, setmovieData] = useState(null);
+  const [url, seturl] = useState('');
 
 
 
   useEffect(()=>{
-    movieUrlHandler()
-   
+    details()
+    
+  //  console.log("props",props)
   },[])
 
-  const movieUrlHandler = async()=>{
-    console.log("trailer url",props.trailer)
+  const details= ()=>{
+    const currentURL = window.location.href;
+    console.log(currentURL);
+    var id = currentURL.split("/").pop().trim();
+    console.log(id);
+    //fetching data by api call
+    axios.get(`https://imdb-api.com/en/API/Title/${imdbApi}/${id || 'tt1375666'}/Images,Trailer,Ratings,`).then((response)=>{
+      console.log("res =====>",response?.data?.trailer?.linkEmbed)
+      seturl(response?.data?.trailer?.linkEmbed)
+      if(response?.data){
+        setmovieData(response?.data)
+        movieUrlHandler(response?.data?.trailer?.linkEmbed)
+      }
+  }).catch((error)=>{
+      console.log("error",error)
+  })
+  }
+
+  const movieUrlHandler = async(MovieUrl)=>{
+     //   const currentURL = window.location.href;
+  //   console.log(currentURL);
+  //   var id = currentURL.split("/").pop().trim();
+    console.log("trailer url -----",url,'MovieUrl',MovieUrl)
     // const url = 'https://www.imdb.com/video/imdb/vi2333017881/imdb/embed'
-    const responce = await Scraping.ScrapingHandler({url:props.trailer})
+    const responce = await Scraping.ScrapingHandler({url:MovieUrl})
     console.log("responce",responce.data)
     if(responce.data.success){
       console.log(responce.data.url[1].videoUrl)

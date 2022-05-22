@@ -218,10 +218,10 @@ const SignUpPage = (props) => {
                         </Field>
                       </div>
                       <div className="d-flex mb-5 align-items-center">
-                        <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
+                        {/* <label className="control control--checkbox mb-0"><span className="caption">Remember me</span>
                           <input type="checkbox" defaultChecked />
                           <div className="control__indicator"></div>
-                        </label>
+                        </label> */}
                         <span className="ml-auto"><a href="/auth/login" className="forgot-pass"> Login to your account </a></span>
                       </div>
                       <button

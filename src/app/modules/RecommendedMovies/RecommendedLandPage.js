@@ -48,7 +48,7 @@ export const RecommendedLandPage = (props) => {
       const suggestion1 = await axios(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}?genres=${user.Gener1}`)
       console.log("suggestion1",suggestion1?.data.results[0])
       if(suggestion1?.data?.results){
-        suggestion.push({Genre:user.Gener2,Movie:suggestion1?.data?.results[0]})
+        suggestion.push({Genre:user.Gener1,Movie:suggestion1?.data?.results[0]})
       }
       const suggestion2 = await axios(`https://imdb-api.com/API/AdvancedSearch/${imdbApi}?genres=${user.Gener2}`)
       console.log("suggestion2",suggestion2)
@@ -85,8 +85,8 @@ export const RecommendedLandPage = (props) => {
                     console.log("mapItem",item)
                     if(item.Movie)
                    return (<>
-                     <p className="text-center">{item.Genre}</p>
-                  <MoviesCard key={item.Movie.id || ''} movies={item.Movie} />
+                   
+                  <MoviesCard  Genre={item.Genre||''} key={item.Movie.id || ''} movies={item.Movie} />
                    </> )
                   })}
                 </div>

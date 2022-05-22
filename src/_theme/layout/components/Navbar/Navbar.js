@@ -44,7 +44,7 @@ export const NavbarPage = () => {
             >
               <Nav.Link className="NavBar text-white" href="/">Home</Nav.Link>
               <Nav.Link className="NavBar text-white" href="/TopMoviesMainPage">Top Movies</Nav.Link>
-              <Nav.Link className="NavBar text-white" href="/TopMoviesMainPage">Latest Movies</Nav.Link>
+              <Nav.Link className="NavBar text-white" href="/latestmovies">Latest Movies</Nav.Link>
 
               <NavDropdown className="NavBar text-white" style={{ color: 'white' }} title="Movie By Genre" id="navbarScrollingDropdown">
                 <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href={`/TopMoviesMainPage?genres=action&runtime=100,&sort=user_rating,desc`}>Action</NavDropdown.Item>
@@ -74,7 +74,7 @@ export const NavbarPage = () => {
                   id="navbarScrollingDropdown">
                 <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href="/profile" >Profile</NavDropdown.Item>
                 <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href="/change-password" >Change Password</NavDropdown.Item>
-                {(user?.Role === "admin") ? <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href={`/statistics`}>Statistics</NavDropdown.Item> : <></>}
+                {/* {(user?.Role === "admin") ? <NavDropdown.Item className="NavBar subnavbar text-white" style={{ borderBottom: '1px solid white' }} href={`/statistics`}>Statistics</NavDropdown.Item> : <></>} */}
                 <NavDropdown.Item className="NavBar subnavbar text-Danger logout" style={{ borderBottom: '1px solid white' }} href={`/logout`}>
 
                   Logout</NavDropdown.Item>

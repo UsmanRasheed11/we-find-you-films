@@ -8,7 +8,11 @@ const axios = Axios.create({
     timeout: 10000,
 });
 
-export const imdbApi = 'k_sblaz5wr'
+ export const imdbApi = 'k_sblaz5wr'
+// export const imdbApi = 'k_991b4g8l'
+// export const imdbApi = 'k_lq5ooe6o'
+//export const imdbApi = 'k_eg7j2x0t'
+// export const imdbApi = 'k_8n7qle6r'
 
 export const Cinema = {
     //cinema

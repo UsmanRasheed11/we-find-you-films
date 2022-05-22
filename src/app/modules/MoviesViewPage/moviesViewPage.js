@@ -9,6 +9,7 @@ import DemoData from "./moviedetail.json";
 import { useDispatch } from "react-redux";
 import * as actions from "../Movies/_redux/watchlist/watchlistActions";
 import { useParams } from "react-router";
+import { imdbApi } from "../../../Api/Api";
 import { notification } from "antd";
 
 function MoviesViewPage(props) {
@@ -16,6 +17,8 @@ function MoviesViewPage(props) {
   const [movieId, setMovieId] = useState(null);
   const [movieData, setmovieData] = useState(null);
   const [isVedioPlayer, setIsVedioPlayer] = useState(false);
+  const [url, seturl] = useState('');
+
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -23,23 +26,25 @@ function MoviesViewPage(props) {
     setIsVedioPlayer(!isVedioPlayer)
 
   };
-  // //using UseEffect to get Movie Id from URL
-  // useEffect(() => {
-  //   const currentURL = window.location.href;
-  //   console.log(currentURL);
-  //   var id = currentURL.split("/").pop().trim();
-  //   console.log(id);
-  //   setMovieId(id);
-  //   //fetching data by api call
-  //   axios.get(`https://imdb-api.com/en/API/Title/k_sblaz5wr/${id || 'tt1375666'}/Images,Trailer,Ratings,`).then((response)=>{
-  //     console.log("res",response?.data)
-  //     if(response?.data){
-  //       setmovieData(response?.data)
-  //     }
-  // }).catch((error)=>{
-  //     console.log("error",error)
-  // })
-  // }, []);
+  //using UseEffect to get Movie Id from URL
+  useEffect(() => {
+    const currentURL = window.location.href;
+    // console.log(currentURL);
+    var id = currentURL.split("/").pop().trim();
+    // console.log(id);
+    setMovieId(id);
+    //fetching data by api call
+    axios.get(`https://imdb-api.com/en/API/Title/${imdbApi}/${id || 'tt1375666'}/Images,Trailer,Ratings,`).then((response)=>{
+      // console.log("res",response?.data)
+      // console.log("res trailer =====>",response?.data?.trailer?.linkEmbed)
+      seturl(response?.data?.trailer?.linkEmbed)
+      if(response?.data){
+        setmovieData(response?.data)
+      }
+  }).catch((error)=>{
+      console.log("error",error)
+  })
+  }, []);
   //using UseEffect to get Movie Id from URL
   useEffect(() => {
     setmovieData(DemoData)
@@ -71,6 +76,7 @@ function MoviesViewPage(props) {
   return (
     <>
       <MovieViewComponent
+      url={url}
         Id={movieId}
         title={movieData?.fullTitle || null}
         image={movieData?.image || null}

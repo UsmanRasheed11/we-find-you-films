@@ -324,6 +324,7 @@ export const CinemaDetailsPage = () => {
                         
                           <input 
                           onChange={(event)=>{
+                            console.log('upload hit')
                             setimage(event.target.files[0])
                             console.log(event.target.files[0])}}
                           class="fileinput " type="file" name="file"/>
